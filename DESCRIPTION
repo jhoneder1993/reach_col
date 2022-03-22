@@ -1,0 +1,16 @@
+Package: JmmiColombia
+Title: Realiza la limpieza de los datos obtenidos en el JMMI Colombia
+Version: 0.0.0.9000
+Authors@R: 
+    person("Jhon", 
+            "Montero", ,
+            "jhon.montero@reach-initiative.org", 
+            role = c("aut", "cre"),
+            comment = c(ORCID = "YOUR-ORCID-ID"))
+Description: Para Jmmi Colombia seguir los siguientes pasos kobo_to_r, import_rename, full_reshape, cleaning.
+License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
+    license
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.2
