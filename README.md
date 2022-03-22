@@ -1,3 +1,3 @@
 ## README
 
-Repository for JMMI COL 
+Repository for la limpieza de JMMI COL
