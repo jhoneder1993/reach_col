@@ -1,4 +1,7 @@
-#' Title
+#' Excel Separados
+#'
+#' Genera salidas individuales segun la variable ingresada, ej. si la variable utilizada es
+#' organizacion genera salida segun las organizaciones que se tengan
 #'
 #' @param df
 #' @param variable
