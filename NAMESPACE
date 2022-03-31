@@ -2,9 +2,9 @@
 
 export(alojamiento_checks)
 export(alojamiento_checks_new)
-export(alojamiento_cleaning)
 export(alojamiento_final_cleaning)
 export(alojamiento_full_reshape)
+export(alojamiento_merge)
 export(alojamiento_replacements)
 export(comercio_full_reshape)
 export(excel_separados)
