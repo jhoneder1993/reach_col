@@ -42,12 +42,6 @@ alojamiento_full_reshape <- function(encuesta, etiquetas, choices){
   #se deja los restantes sin los vacios
   servicios <- servicios[!(is.na(servicios$id_servicios)),]
 
-  ##Elininar duplicados
-  servicios <- servicios %>% filter(!(id_servicios == "1" & duplicated("_submission__uuid")))
-  servicios <- servicios %>% filter(!(id_servicios == "2" & duplicated("_submission__uuid")))
-  servicios <- servicios %>% filter(!(id_servicios == "3" & duplicated("_submission__uuid")))
-  servicios <- servicios %>% filter(!(id_servicios == "4" & duplicated("_submission__uuid")))
-
   #uuid repetidos
   duplicados1 <- servicios %>% filter((id_servicios == "1" & duplicated("_submission__uuid"))) %>% select(`_submission__uuid`)
   duplicados2 <- servicios %>% filter((id_servicios == "2" & duplicated("_submission__uuid"))) %>% select(`_submission__uuid`)
@@ -55,6 +49,12 @@ alojamiento_full_reshape <- function(encuesta, etiquetas, choices){
   duplicados4 <- servicios %>% filter((id_servicios == "4" & duplicated("_submission__uuid"))) %>% select(`_submission__uuid`)
 
   duplicados <- bind_rows(duplicados1, duplicados2, duplicados3, duplicados4)
+
+  ##Elininar duplicados
+  servicios <- servicios %>% filter(!(id_servicios == "1" & duplicated("_submission__uuid")))
+  servicios <- servicios %>% filter(!(id_servicios == "2" & duplicated("_submission__uuid")))
+  servicios <- servicios %>% filter(!(id_servicios == "3" & duplicated("_submission__uuid")))
+  servicios <- servicios %>% filter(!(id_servicios == "4" & duplicated("_submission__uuid")))
 
   print("Datos duplicados que fueron eliminados: ")
   print(duplicados["_submission__uuid"])
