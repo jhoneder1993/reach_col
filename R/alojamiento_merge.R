@@ -1,4 +1,4 @@
-#' Alojamiento Cleaning
+#' Alojamiento Merge
 #'
 #' @param base_datos lista de las hojas que genero el full_reshape
 #'
@@ -9,11 +9,11 @@
 #'
 #' @examples base_datos_reshape <- full_reshape_alojamiento(base_datos, etiquetas, choices)
 #'
-#' @examples base_cleaning <- cleaning_alojamiento(base_datos_reshape)
-#' @examples base_cleaning <- cleaning_alojamiento(base_datos_reshape = base_datos_reshape)
+#' @examples base_merge <- alojamiento_merge(base_datos)
+#' @examples base_merge <- alojamiento_merge(base_datos = base_datos_reshape)
 
 
-alojamiento_cleaning <- function(base_datos){
+alojamiento_merge <- function(base_datos){
   ### Cambiar nombre a la based de datos de la Lista
   jmmi <- names(base_datos[1])
   jmmi_labels <- names(base_datos[2])
