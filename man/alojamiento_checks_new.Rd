@@ -67,5 +67,5 @@ Sirve para identificar los datos atipicos de precios y valores atipicos de la ba
 base_cleaning <- cleaning_alojamiento(base_datos_reshape)
 
 base_outliers <- checks_alojamiento(base_cleaning)
-base_outliers <- checks_alojamiento(base_datos = base_cleaning )
+base_outliers <- checks_alojamiento(base_datos = base_cleaning)
 }

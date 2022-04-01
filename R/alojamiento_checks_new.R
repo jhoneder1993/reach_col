@@ -34,7 +34,7 @@
 #' @examples base_cleaning <- cleaning_alojamiento(base_datos_reshape)
 #'
 #' @examples base_outliers <- checks_alojamiento(base_cleaning)
-#' @examples base_outliers <- checks_alojamiento(base_datos = base_cleaning )
+#' @examples base_outliers <- checks_alojamiento(base_datos = base_cleaning)
 
 alojamiento_checks_new <- function(base_datos){
   lista <- list()
@@ -119,6 +119,8 @@ alojamiento_checks_new <- function(base_datos){
   # Eliminar la columna creada para el filtro
   base_datos2 <- base_datos2 %>% select(-encuesta_piloto)
 
+  lista[["Encuestas_piloto"]] <- base_datos2
+
   #print avance
   print("La base de datos 'Encuestas_piloto' se ha ejecutado de manera correcta.")
   cat("\n")
@@ -134,6 +136,8 @@ alojamiento_checks_new <- function(base_datos){
   ## Filtro
   base_datos3 <- base_datos3 %>% filter(movimiento_otro != "")
 
+  lista[["Intencion_moverse"]] <- base_datos3
+
   #print avance
   print("La base de datos 'Intencion_moverse' se ha ejecutado de manera correcta.")
   cat("\n")
@@ -147,6 +151,8 @@ alojamiento_checks_new <- function(base_datos){
   base_datos4 <- base_datos4[,(names(base_datos4)) %in% dejar]
 
   base_datos4 <- base_datos4 %>% filter(tipo_alojamiento_otr != "")
+
+  lista[["Tipo_alojamiento_rancho"]] <- base_datos4
 
   #print avance
   print("La base de datos 'Tipo_alojamiento_rancho' se ha ejecutado de manera correcta.")
@@ -162,6 +168,8 @@ alojamiento_checks_new <- function(base_datos){
 
   base_datos5 <- base_datos5 %>% filter(prop_alojamiento == "Hospedaje temporal" & tipo_alojamiento == "Casa o apartamento")
 
+  lista[["Tipo_alojamiento_temp"]] <- base_datos5
+
   #print avance
   print("La base de datos 'Tipo_alojamiento_temp' se ha ejecutado de manera correcta.")
   cat("\n")
@@ -174,6 +182,8 @@ alojamiento_checks_new <- function(base_datos){
   base_datos6 <- base_datos6[,(names(base_datos6)) %in% dejar]
 
   base_datos6 <- base_datos6 %>% filter(prop_alojamiento == "Hospedaje temporal" & tipo_alojamiento == "Pagadiario o pasa día")
+
+  lista[["Tipo_alojamiento_pagadiario"]] <- base_datos6
 
   #print avance
   print("La base de datos 'Tipo_alojamiento_pagadiario' se ha ejecutado de manera correcta.")
@@ -188,6 +198,8 @@ alojamiento_checks_new <- function(base_datos){
 
   base_datos7 <- base_datos7 %>% filter(prop_alojamiento == "Hospedaje temporal" & tipo_alojamiento == "Habitación hotel")
 
+  lista[["Tipo_alojamiento_hotel"]] <- base_datos7
+
   #print avance
   print("La base de datos 'Tipo_alojamiento_hotel' se ha ejecutado de manera correcta.")
   cat("\n")
@@ -201,6 +213,8 @@ alojamiento_checks_new <- function(base_datos){
   base_datos8 <- base_datos8[,(names(base_datos8)) %in% dejar]
 
   base_datos8 <- base_datos8 %>% filter(as.numeric(num_hogar) > 10 | as.numeric(num_nohogar) > 10)
+
+  lista[["Num_hogar"]] <- base_datos8
 
   #print avance
   print("La base de datos 'Num_hogar' se ha ejecutado de manera correcta.")
@@ -217,6 +231,8 @@ alojamiento_checks_new <- function(base_datos){
   base_datos9 <- base_datos9 %>% filter(as.numeric(num_cuartos_priv) < 0 | as.numeric(num_cuartos_comp < 0) |
                                           as.numeric(num_cuartos_priv) > 3 | as.numeric(num_cuartos_comp) > 3)
 
+  lista[["Facilidades"]] <- base_datos9
+
   #print avance
   print("La base de datos 'Facilidades' se ha ejecutado de manera correcta.")
   cat("\n")
@@ -230,6 +246,8 @@ alojamiento_checks_new <- function(base_datos){
 
   base_datos10 <- base_datos10 %>% filter(otr_facilidad_esp != "")
 
+  lista[["Facilidades_otr"]] <- base_datos10
+
   #print avance
   print("La base de datos 'Facilidades_otr' se ha ejecutado de manera correcta.")
   cat("\n")
@@ -242,6 +260,8 @@ alojamiento_checks_new <- function(base_datos){
   base_datos11 <- base_datos11[,(names(base_datos11)) %in% dejar]
 
   base_datos11 <- base_datos11 %>% filter(as.numeric(cuartos) == 0 | as.numeric(cuartos) < 0 | as.numeric(cuartos) > 2)
+
+  lista[["Num_cuartos"]] <- base_datos11
 
   #print avance
   print("La base de datos 'Num_cuartos' se ha ejecutado de manera correcta.")
@@ -288,6 +308,8 @@ alojamiento_checks_new <- function(base_datos){
   base_datos12 <- base_datos12 %>% filter(Z_cantidad_pago1 == 1 | Z_valor_ant_alojamiento1 == 1 |
                                             deposito_cash == 1 | Z_pago_adelantado == 1 | Z_pago_formal == 1)
 
+  lista[["precioslocos_inquilinato"]] <- base_datos12
+
   #print avance
   print("La base de datos 'precioslocos_inquilinato' se ha ejecutado de manera correcta.")
   cat("\n")
@@ -333,6 +355,8 @@ alojamiento_checks_new <- function(base_datos){
 
     base_datos13 <- base_datos13 %>% filter(Z_cantidad_pago1 == 1 | Z_valor_ant_alojamiento1 == 1 |
                                               deposito_cash == 1 | Z_pago_adelantado == 1 | Z_pago_formal == 1)
+
+    lista[["precioslocos_cuarto"]] <- base_datos13
 
     #print avance
     print("La base de datos 'precioslocos_cuarto' se ha ejecutado de manera correcta.")
@@ -386,6 +410,8 @@ alojamiento_checks_new <- function(base_datos){
     base_datos14 <- base_datos14 %>% filter(Z_cantidad_pago1 == 1 | Z_valor_ant_alojamiento1 == 1 |
                                               deposito_cash == 1 | Z_pago_adelantado == 1 | Z_pago_formal == 1)
 
+    lista[["precioslocos_pagadiario"]] <- base_datos14
+
     #print avance
     print("La base de datos 'precioslocos_pagadiario' se ha ejecutado de manera correcta.")
     cat("\n")
@@ -438,6 +464,8 @@ alojamiento_checks_new <- function(base_datos){
     base_datos15 <- base_datos15 %>% filter(Z_cantidad_pago1 == 1 | Z_valor_ant_alojamiento1 == 1 |
                                               deposito_cash == 1 | Z_pago_adelantado == 1 | Z_pago_formal == 1)
 
+    lista[["precioslocos_casa"]] <- base_datos15
+
     #print avance
     print("La base de datos 'precioslocos_casa' se ha ejecutado de manera correcta.")
     cat("\n")
@@ -488,6 +516,8 @@ alojamiento_checks_new <- function(base_datos){
 
     base_datos16 <- base_datos16 %>% filter(Z_cantidad_pago1 == 1 | Z_valor_ant_alojamiento1 == 1 |
                                               deposito_cash == 1 | Z_pago_adelantado == 1 | Z_pago_formal == 1)
+
+    lista[["precioslocos_habitacion"]] <- base_datos16
 
     #print avance
     print("La base de datos 'precioslocos_habitacion' se ha ejecutado de manera correcta.")
@@ -541,6 +571,8 @@ alojamiento_checks_new <- function(base_datos){
     base_datos17 <- base_datos17 %>% filter(Z_cantidad_pago1 == 1 | Z_valor_ant_alojamiento1 == 1 |
                                               deposito_cash == 1 | Z_pago_adelantado == 1 | Z_pago_formal == 1)
 
+    lista[["precioslocos_albergue"]] <- base_datos17
+
     #print avance
     print("La base de datos 'precioslocos_albergue' se ha ejecutado de manera correcta.")
     cat("\n")
@@ -593,6 +625,8 @@ alojamiento_checks_new <- function(base_datos){
     base_datos18 <- base_datos18 %>% filter(Z_cantidad_pago1 == 1 | Z_valor_ant_alojamiento1 == 1 |
                                               deposito_cash == 1 | Z_pago_adelantado == 1 | Z_pago_formal == 1)
 
+    lista[["precioslocos_asentamiento"]] <- base_datos18
+
     #print avance
     print("La base de datos 'precioslocos_asentamiento' se ha ejecutado de manera correcta.")
     cat("\n")
@@ -630,6 +664,9 @@ alojamiento_checks_new <- function(base_datos){
              if("valor_facilidades_2" %in% names(base_datos19)) as.numeric(valor_facilidades_2) > 20000 else TRUE |
              if("valor_facilidades_3" %in% names(base_datos19)) as.numeric(valor_facilidades_3) > 20000 else TRUE |
              if("valor_facilidades_4" %in% names(base_datos19)) as.numeric(valor_facilidades_4) > 20000 else TRUE)
+
+  lista[["Pago_alojamiento"]] <- base_datos19
+
   #print avance
   print("La base de datos 'Pago_alojamiento' se ha ejecutado de manera correcta.")
   cat("\n")
@@ -644,6 +681,8 @@ alojamiento_checks_new <- function(base_datos){
   base_datos20 <- base_datos20[,(names(base_datos20)) %in% dejar]
   base_datos20 <- base_datos20 %>% filter(modo_pago_servicio_1 == "Se paga por aparte" & as.numeric(valor_servicio_1) == 0 )
 
+  lista[["Agua_valor"]] <- base_datos20
+
   #print avance
   print("La base de datos 'Agua_valor' se ha ejecutado de manera correcta.")
   cat("\n")
@@ -656,6 +695,8 @@ alojamiento_checks_new <- function(base_datos){
              "modo_pago_servicio_2", "valor_servicio_2")
   base_datos21 <- base_datos21[,(names(base_datos21)) %in% dejar]
   base_datos21 <- base_datos21 %>% filter(modo_pago_servicio_2 == "Se paga por aparte" & as.numeric(valor_servicio_2) == 0 )
+
+  lista[["Gas_valor"]] <- base_datos21
 
   #print avance
   print("La base de datos 'Gas_valor' se ha ejecutado de manera correcta.")
@@ -670,6 +711,8 @@ alojamiento_checks_new <- function(base_datos){
   base_datos22 <- base_datos22[,(names(base_datos22)) %in% dejar]
   base_datos22 <- base_datos22 %>% filter(modo_pago_servicio_3 == "Se paga por aparte" & as.numeric(valor_servicio_3) == 0 )
 
+  lista[["EnergiaLuz_valor"]] <- base_datos22
+
   #print avance
   print("La base de datos 'EnergiaLuz_valor' se ha ejecutado de manera correcta.")
   cat("\n")
@@ -683,6 +726,8 @@ alojamiento_checks_new <- function(base_datos){
   base_datos23 <- base_datos23[,(names(base_datos23)) %in% dejar]
   base_datos23 <- base_datos23 %>% filter(modo_pago_servicio_4 == "Se paga por aparte" & as.numeric(valor_servicio_4) == 0 )
 
+  lista[["Internet_valor"]] <- base_datos23
+
   #print avance
   print("La base de datos 'Internet_valor' se ha ejecutado de manera correcta.")
   cat("\n")
@@ -695,6 +740,8 @@ alojamiento_checks_new <- function(base_datos){
              "modo_pago_servicio_5", "valor_servicio_5")
   base_datos24 <- base_datos24[,(names(base_datos24)) %in% dejar]
   base_datos24 <- base_datos24 %>% filter(if("valor_servicio_5" %in% names(base_datos24)) modo_pago_servicio_5 == "Se paga por aparte" & as.numeric(valor_servicio_5) == 0 else FALSE)
+
+  lista[["telefono_valor"]] <- base_datos24
 
   #print avance
   print("La base de datos 'telefono_valor' se ha ejecutado de manera correcta.")
@@ -710,6 +757,8 @@ alojamiento_checks_new <- function(base_datos){
   base_datos25 <- base_datos25[,(names(base_datos25)) %in% dejar]
   base_datos25 <- base_datos25 %>% filter(cantidad_pago == valor_ant_alojamiento | as.numeric(cantidad_pago) > as.numeric(valor_ant_alojamiento))
 
+  lista[["Disminuye_arriendo"]] <- base_datos25
+
   #print avance
   print("La base de datos 'Disminuye_arriendo' se ha ejecutado de manera correcta.")
   cat("\n")
@@ -723,6 +772,8 @@ alojamiento_checks_new <- function(base_datos){
              "cantidad_pago", "cambio_precio", "valor_ant_alojamiento")
   base_datos26 <- base_datos26[,(names(base_datos26)) %in% dejar]
   base_datos26 <- base_datos26 %>% filter(cantidad_pago == valor_ant_alojamiento | as.numeric(cantidad_pago) < as.numeric(valor_ant_alojamiento))
+
+  lista[["Aumenta_arriendo"]] <- base_datos26
 
   #print avance
   print("La base de datos 'Aumenta_arriendo' se ha ejecutado de manera correcta.")
@@ -784,5 +835,5 @@ alojamiento_checks_new <- function(base_datos){
   print("Funcion ejecutada con exito...")
 
   ##Return la lista con toda la informacion
-  return(base_datos)
+  return(lista)
 }
