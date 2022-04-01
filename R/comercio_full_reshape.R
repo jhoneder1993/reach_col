@@ -112,10 +112,6 @@ comercio_full_reshape <- function(encuesta, etiquetas, choices){
   food <- food %>% filter(!(id_alimento_my == "4" & duplicated("_submission__uuid")))
 
 
-  #Agregar al id_alimento_my el valor_food
-  food["id_alimento_my"] <- paste("valor_food", food[["id_alimento_my"]], sep = "_")
-
-
   ###Hacer el reshape o pivot wider
   food_reshape <- food %>%
     pivot_wider(id_cols = `_submission__uuid`,#i
@@ -169,10 +165,6 @@ comercio_full_reshape <- function(encuesta, etiquetas, choices){
   non_food <- non_food %>% filter(!(id_no_alimento_my == "4" & duplicated("_submission__uuid")))
 
 
-  #Agregar al id_alimento_my el valor_food
-  non_food["id_alimento_my"] <- paste("valor_food", non_food[["id_alimento_my"]], sep = "_")
-
-  names(non_food)
   ###Hacer el reshape o pivot wider
   non_food_reshape <- non_food %>%
     pivot_wider(id_cols = `_submission__uuid`,#i

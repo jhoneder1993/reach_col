@@ -1,0 +1,59 @@
+[33mcommit b30594758c4e842d8298afaed91da744f477c241[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m
+Author: jhoneder1993 <jhoneder1993@gmail.com>
+Date:   Thu Mar 31 15:21:34 2022 -0500
+
+    se modifico la descripcion de alojamiento merge
+
+[33mcommit c53579148f4a01520845939797d210a83676aeb7[m
+Author: jhoneder1993 <jhoneder1993@gmail.com>
+Date:   Thu Mar 31 15:19:58 2022 -0500
+
+    se cambio el nombre de la funcion alojamiento_cleaning por alojamiento_merge
+
+[33mcommit 3f0efec84f7480ffa30028c538a89df73b493661[m
+Author: jhoneder1993 <jhoneder1993@gmail.com>
+Date:   Thu Mar 31 15:05:36 2022 -0500
+
+    Se agrego el paquete de comercio_full_reshape
+
+[33mcommit 2bb257d559d6d441ce51d16e0e3c73eed7349e93[m
+Author: jhoneder1993 <jhoneder1993@gmail.com>
+Date:   Thu Mar 31 12:33:00 2022 -0500
+
+    Se ajusto alojamiento_full_reshape primero ver uuid repetidos despues si borrar
+
+[33mcommit 0ec278991bf51d9bc0a06f1c7f1df7d7187613f0[m
+Author: jhoneder1993 <jhoneder1993@gmail.com>
+Date:   Wed Mar 23 11:03:45 2022 -0500
+
+    Agregar descripcion de la funcion
+
+[33mcommit 791957f0fe910b7bc6c0d512cb35a9768026970a[m
+Author: jhoneder1993 <jhoneder1993@gmail.com>
+Date:   Wed Mar 23 10:55:23 2022 -0500
+
+    Se agrego el return para excel_separados pero falta generar mejor return
+
+[33mcommit 58731896b910c5aceeddf558e0539a5b177a628c[m
+Author: jhoneder1993 <jhoneder1993@gmail.com>
+Date:   Tue Mar 22 09:28:53 2022 -0500
+
+    Se ajusto el for por para
+
+[33mcommit f2995a6f07b927777cea29207b27b4eed6b60ac0[m
+Author: jhoneder1993 <jhoneder1993@gmail.com>
+Date:   Tue Mar 22 09:26:09 2022 -0500
+
+    Ajuste del README
+
+[33mcommit a9bd6b8abf433eb27899f4e72a4b5e95e5dbd804[m
+Author: jhoneder1993 <jhoneder1993@gmail.com>
+Date:   Tue Mar 22 09:13:42 2022 -0500
+
+    Agregar el REAMDE al repositorio
+
+[33mcommit f32c7349de2cd03b591a5961f0b6e31bd2b9d7c2[m
+Author: jhoneder1993 <jhoneder1993@gmail.com>
+Date:   Tue Mar 22 08:54:13 2022 -0500
+
+    Paquete de JMMI Colombia
