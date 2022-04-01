@@ -159,7 +159,7 @@ comercio_merge <- function(base_datos){
   }
 
   ## mostrar datos que no existen
-  print("Las siguientes variables no se encuentra en la BD, por favor verificar si su nombre esta bien o modificar en el paquete funciones 'reemplazar puntos': ")
+  print("Las siguientes variables no se encuentra en la BD, por favor verificar si su nombre esta bien o modificar en el paquete funciones 'reemplazar 0 y 1 por Si y No': ")
   print(no_estan)
   cat("\n")
 
