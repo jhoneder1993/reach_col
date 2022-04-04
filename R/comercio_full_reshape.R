@@ -18,6 +18,7 @@
 #' @examples base_datos_reshape <- full_reshape(base_datos = base_datos, etiquetas = etiquetas, choices = choices)
 
 
+
 comercio_full_reshape <- function(encuesta, etiquetas, choices){
   lista <- list()
   JMMI <- names(encuesta[1])
@@ -42,23 +43,18 @@ comercio_full_reshape <- function(encuesta, etiquetas, choices){
   #se deja los restantes sin los vacios
   abas <- abas[!(is.na(abas$id_alimento)),]
 
-  #uuid repetidos
-  duplicados1 <- abas %>% filter((id_alimento == "1" & duplicated("_submission__uuid"))) %>% select(`_submission__uuid`)
-  duplicados2 <- abas %>% filter((id_alimento == "2" & duplicated("_submission__uuid"))) %>% select(`_submission__uuid`)
-  duplicados3 <- abas %>% filter((id_alimento == "3" & duplicated("_submission__uuid"))) %>% select(`_submission__uuid`)
-  duplicados4 <- abas %>% filter((id_alimento == "4" & duplicated("_submission__uuid"))) %>% select(`_submission__uuid`)
 
-  duplicados <- bind_rows(duplicados1, duplicados2, duplicados3, duplicados4)
+  ## Concatenar para ver y eliminar los duplicados
+  abas[["conca"]] <- paste(abas[["id_alimento"]], abas[["_submission__uuid"]], sep = "_")
+  #uuid repetidos
+  duplicados <- abas %>% filter(duplicated(conca)) %>% select(`_submission__uuid`)
 
   print("Datos duplicados que fueron eliminados: ")
   print(duplicados["_submission__uuid"])
   cat("\n")
 
-  ##Eliminar duplicados
-  abas <- abas %>% filter(!(id_alimento == "1" & duplicated("_submission__uuid")))
-  abas <- abas %>% filter(!(id_alimento == "2" & duplicated("_submission__uuid")))
-  abas <- abas %>% filter(!(id_alimento == "3" & duplicated("_submission__uuid")))
-  abas <- abas %>% filter(!(id_alimento == "4" & duplicated("_submission__uuid")))
+  # Eliminar duplicados
+  abas <- abas %>% filter(!duplicated(conca)) %>% select(-conca)
 
   ##Hacer el reshape o pivot wider
   abas_reshape <- abas %>%
@@ -67,6 +63,13 @@ comercio_full_reshape <- function(encuesta, etiquetas, choices){
                 values_from = c(capa_abste_nuevo, proveedor_nuevo, depart_nuevo,
                                 pais_nuevo, otr_pais_nuevo, tipo_proveedor_nuevo,
                                 otr_tipo_proveedor_nuevo))
+
+  abas %>%
+    dplyr::group_by(`_submission__uuid`, id_alimento) %>%
+    dplyr::summarise(n = dplyr::n(), .groups = "drop") %>%
+    dplyr::filter(n > 1L)
+
+
 
   ##renombrar la columna _submission__uuid
   abas_reshape <- dplyr::rename(abas_reshape, "_uuid" = `_submission__uuid`)
@@ -92,24 +95,18 @@ comercio_full_reshape <- function(encuesta, etiquetas, choices){
   #se deja los restantes sin los vacios
   food <- food[!(is.na(food$id_alimento_my)),]
 
-  #uuid repetidos
-  duplicados1 <- food %>% filter((id_alimento_my == "1" & duplicated("_submission__uuid"))) %>% select(`_submission__uuid`)
-  duplicados2 <- food %>% filter((id_alimento_my == "2" & duplicated("_submission__uuid"))) %>% select(`_submission__uuid`)
-  duplicados3 <- food %>% filter((id_alimento_my == "3" & duplicated("_submission__uuid"))) %>% select(`_submission__uuid`)
-  duplicados4 <- food %>% filter((id_alimento_my == "4" & duplicated("_submission__uuid"))) %>% select(`_submission__uuid`)
 
-  duplicados <- bind_rows(duplicados1, duplicados2, duplicados3, duplicados4)
+  ## Concatenar para ver y eliminar los duplicados
+  food[["conca"]] <- paste(food[["id_alimento_my"]], food[["_submission__uuid"]], sep = "_")
+  #uuid repetidos
+  duplicados <- food %>% filter(duplicated(conca)) %>% select(`_submission__uuid`)
 
   print("Datos duplicados que fueron eliminados: ")
   print(duplicados["_submission__uuid"])
   cat("\n")
 
-
-  ##Elininar duplicados
-  food <- food %>% filter(!(id_alimento_my == "1" & duplicated("_submission__uuid")))
-  food <- food %>% filter(!(id_alimento_my == "2" & duplicated("_submission__uuid")))
-  food <- food %>% filter(!(id_alimento_my == "3" & duplicated("_submission__uuid")))
-  food <- food %>% filter(!(id_alimento_my == "4" & duplicated("_submission__uuid")))
+  # Eliminar duplicados
+  food <- food %>% filter(!duplicated(conca)) %>% select(-conca)
 
 
   ###Hacer el reshape o pivot wider
@@ -145,24 +142,18 @@ comercio_full_reshape <- function(encuesta, etiquetas, choices){
   #se deja los restantes sin los vacios
   non_food <- non_food[!(is.na(non_food$id_no_alimento_my)),]
 
-  #uuid repetidos
-  duplicados1 <- non_food %>% filter((id_no_alimento_my == "1" & duplicated("_submission__uuid"))) %>% select(`_submission__uuid`)
-  duplicados2 <- non_food %>% filter((id_no_alimento_my == "2" & duplicated("_submission__uuid"))) %>% select(`_submission__uuid`)
-  duplicados3 <- non_food %>% filter((id_no_alimento_my == "3" & duplicated("_submission__uuid"))) %>% select(`_submission__uuid`)
-  duplicados4 <- non_food %>% filter((id_no_alimento_my == "4" & duplicated("_submission__uuid"))) %>% select(`_submission__uuid`)
 
-  duplicados <- bind_rows(duplicados1, duplicados2, duplicados3, duplicados4)
+  ## Concatenar para ver y eliminar los duplicados
+  non_food[["conca"]] <- paste(non_food[["id_no_alimento_my"]], non_food[["_submission__uuid"]], sep = "_")
+  #uuid repetidos
+  duplicados <- non_food %>% filter(duplicated(conca)) %>% select(`_submission__uuid`)
 
   print("Datos duplicados que fueron eliminados: ")
   print(duplicados["_submission__uuid"])
   cat("\n")
 
-
-  ##Elininar duplicados
-  non_food <- non_food %>% filter(!(id_no_alimento_my == "1" & duplicated("_submission__uuid")))
-  non_food <- non_food %>% filter(!(id_no_alimento_my == "2" & duplicated("_submission__uuid")))
-  non_food <- non_food %>% filter(!(id_no_alimento_my == "3" & duplicated("_submission__uuid")))
-  non_food <- non_food %>% filter(!(id_no_alimento_my == "4" & duplicated("_submission__uuid")))
+  # Eliminar duplicados
+  non_food <- non_food %>% filter(!duplicated(conca)) %>% select(-conca)
 
 
   ###Hacer el reshape o pivot wider

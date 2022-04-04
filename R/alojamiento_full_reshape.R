@@ -42,23 +42,19 @@ alojamiento_full_reshape <- function(encuesta, etiquetas, choices){
   #se deja los restantes sin los vacios
   servicios <- servicios[!(is.na(servicios$id_servicios)),]
 
+
+  ## Concatenar para ver y eliminar los duplicados
+  servicios[["conca"]] <- paste(servicios[["id_servicios"]], servicios[["_submission__uuid"]], sep = "_")
   #uuid repetidos
-  duplicados1 <- servicios %>% filter((id_servicios == "1" & duplicated("_submission__uuid"))) %>% select(`_submission__uuid`)
-  duplicados2 <- servicios %>% filter((id_servicios == "2" & duplicated("_submission__uuid"))) %>% select(`_submission__uuid`)
-  duplicados3 <- servicios %>% filter((id_servicios == "3" & duplicated("_submission__uuid"))) %>% select(`_submission__uuid`)
-  duplicados4 <- servicios %>% filter((id_servicios == "4" & duplicated("_submission__uuid"))) %>% select(`_submission__uuid`)
-
-  duplicados <- bind_rows(duplicados1, duplicados2, duplicados3, duplicados4)
-
-  ##Eliminar duplicados
-  servicios <- servicios %>% filter(!(id_servicios == "1" & duplicated("_submission__uuid")))
-  servicios <- servicios %>% filter(!(id_servicios == "2" & duplicated("_submission__uuid")))
-  servicios <- servicios %>% filter(!(id_servicios == "3" & duplicated("_submission__uuid")))
-  servicios <- servicios %>% filter(!(id_servicios == "4" & duplicated("_submission__uuid")))
+  duplicados <- servicios %>% filter(duplicated(conca)) %>% select(`_submission__uuid`)
 
   print("Datos duplicados que fueron eliminados: ")
   print(duplicados["_submission__uuid"])
   cat("\n")
+
+  # Eliminar duplicados
+  servicios <- servicios %>% filter(!duplicated(conca)) %>% select(-conca)
+
 
   ##Hacer el reshape o pivot wider
   servicios_reshape <- servicios %>%
@@ -90,23 +86,19 @@ alojamiento_full_reshape <- function(encuesta, etiquetas, choices){
   #se deja los restantes sin los vacios
   facilidades <- facilidades[!(is.na(facilidades$id_facilidades)),]
 
-  #uuid repetidos
-  duplicados1 <- facilidades %>% filter((id_facilidades == "1" & duplicated("_submission__uuid"))) %>% select(`_submission__uuid`)
-  duplicados2 <- facilidades %>% filter((id_facilidades == "2" & duplicated("_submission__uuid"))) %>% select(`_submission__uuid`)
-  duplicados3 <- facilidades %>% filter((id_facilidades == "3" & duplicated("_submission__uuid"))) %>% select(`_submission__uuid`)
-  duplicados4 <- facilidades %>% filter((id_facilidades == "4" & duplicated("_submission__uuid"))) %>% select(`_submission__uuid`)
 
-  duplicados <- bind_rows(duplicados1, duplicados2, duplicados3, duplicados4)
+  ## Concatenar para ver y eliminar los duplicados
+  facilidades[["conca"]] <- paste(facilidades[["id_facilidades"]], facilidades[["_submission__uuid"]], sep = "_")
+  #uuid repetidos
+  duplicados <- facilidades %>% filter(duplicated(conca)) %>% select(`_submission__uuid`)
 
   print("Datos duplicados que fueron eliminados: ")
   print(duplicados["_submission__uuid"])
   cat("\n")
 
-  ##Eliminar duplicados
-  facilidades <- facilidades %>% filter(!(id_facilidades == "1" & duplicated("_submission__uuid")))
-  facilidades <- facilidades %>% filter(!(id_facilidades == "2" & duplicated("_submission__uuid")))
-  facilidades <- facilidades %>% filter(!(id_facilidades == "3" & duplicated("_submission__uuid")))
-  facilidades <- facilidades %>% filter(!(id_facilidades == "4" & duplicated("_submission__uuid")))
+  # Eliminar duplicados
+  facilidades <- facilidades %>% filter(!duplicated(conca)) %>% select(-conca)
+
 
   #Agregar al id_facilidades el valor_facilidades
   facilidades["id_facilidades"] <- paste("valor_facilidades", facilidades[["id_facilidades"]], sep = "_")
