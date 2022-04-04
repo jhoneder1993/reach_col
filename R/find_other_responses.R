@@ -12,53 +12,58 @@
 
 
 find_other_responses <- function(data, uuid="uuid"){
-  # Cambiar nombre al uuid
-  data <- dplyr::rename(data, uuid = uuid)
-  # Otros. Palabras que se deben tener en cuenta
-  select_other_columns <- function(data) {
-    othernames <- grep("other$|Other$|otro$|Otro$|otr$|Otr$|uuid$|$otr|$Otr", names(data),
-                       value = T
-    )
-    data[othernames]
-  }
 
-  # Calcular el numero de indice
-  empty_issues_table <- function() {
-    data.frame(
-      index = numeric(), value = numeric(), variable = character(),
-      has_issue = logical(), issue_type = character()
-    )
-
-  }
-
-
-  # Revisar los otros
-  counts<-data %>% select_other_columns
-  if(ncol(counts) == 0){return(empty_issues_table())}
-  counts <- counts %>% tidyr::gather("key", "value", -uuid)
-
-
-  if(ncol(counts) == 0){return(empty_issues_table())}else{
-    #%>% extract(.,colSums(!is.na(.))<nrow(.))
-    counts %<>% filter(!is.na(value)) %>% filter(!value %in% c("", TRUE, FALSE, 1, 0, "TRUE", "FALSE", "<NA>", "NA", "n/a", "N/A"))
-
-    counts %<>% group_by(key,value) %>% mutate(uuid = paste0(uuid, collapse = "; "))
-    counts %<>% group_by(uuid, key,value) %>% summarise(count=length(value)) %>% filter(!is.na(value))
-
-    #summarise_all(funs(sum, na.rm = T))
-
-    others <- counts %>% as.data.frame
-
-    if (nrow(others) == 0) {
-      return(empty_issues_table())
+  if (uuid %in% names(data)){
+    # Cambiar nombre al uuid
+    data <- dplyr::rename(data, uuid = uuid)
+    # Otros. Palabras que se deben tener en cuenta
+    select_other_columns <- function(data) {
+      othernames <- grep("other$|Other$|otro$|Otro$|otr$|Otr$|^otr|^Otr|uuid$", names(data),
+                         value = T
+      );othernames
+      data[othernames]
     }
 
-    others <- others %>% mutate(value = paste0(value," /// casos: ",count)) %>% select(uuid, variable = key, value)
+    # Calcular el numero de indice
+    empty_issues_table <- function() {
+      data.frame(
+        index = numeric(), value = numeric(), variable = character(),
+        has_issue = logical(), issue_type = character()
+      )
 
-    others <- data.frame(others[, c("uuid" ,"value", "variable")],
-                         has_issue = T, issue_type = "'otra' respuesta. pueden necesitar recodificar.", stringsAsFactors = F)
+    }
 
-    return(others)
+
+    # Revisar los otros
+    counts<-data %>% select_other_columns
+    if(ncol(counts) == 0){return(empty_issues_table())}
+    counts <- counts %>% tidyr::gather("key", "value", -uuid)
+
+
+    if(ncol(counts) == 0){return(empty_issues_table())}else{
+      #%>% extract(.,colSums(!is.na(.))<nrow(.))
+      counts %<>% filter(!is.na(value)) %>% filter(!value %in% c("", TRUE, FALSE, 1, 0, "TRUE", "FALSE", "<NA>", "NA", "n/a", "N/A"))
+
+      counts %<>% group_by(key,value) %>% mutate(uuid = paste0(uuid, collapse = "; "))
+      counts %<>% group_by(uuid, key,value) %>% summarise(count=length(value)) %>% filter(!is.na(value))
+
+      #summarise_all(funs(sum, na.rm = T))
+
+      others <- counts %>% as.data.frame
+
+      if (nrow(others) == 0) {
+        return(empty_issues_table())
+      }
+
+      others <- others %>% mutate(value = paste0(value," /// casos: ",count)) %>% select(uuid, variable = key, value)
+
+      others <- data.frame(others[, c("uuid" ,"value", "variable")],
+                           has_issue = T, issue_type = "'otra' respuesta. pueden necesitar recodificar.", stringsAsFactors = F)
+
+      return(others)
+    }
+  }else{
+    print("Revisar nuevamente no se encuentra el uuid suministrado")
   }
 }
 

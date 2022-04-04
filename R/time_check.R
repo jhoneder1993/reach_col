@@ -24,7 +24,7 @@ time_check <- function(df, time_min=5, time_max=60, uuid = "_uuid"){
                           interview_duration > time_max ~ "Too long",
                           TRUE ~ "Okay")) %>% select(uuid, interview_duration, CHECK_interview_duration)
   } else {
-    print("No se encontraton las variables inicio & final o start & end")
+    print("No se encontraton las variables inicio & final o start & end o el uuid suministrado")
   }
 
   return(df)
