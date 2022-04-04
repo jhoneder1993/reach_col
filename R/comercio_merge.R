@@ -181,8 +181,8 @@ comercio_merge <- function(base_datos){
   }
 
   ## Guardar la base de datos en excel
-  base_datos1 <- writexl::write_xlsx(list("Base de datos" = jmmi_colombia), "Result/Clean_data/Feedback/Feedback.xlsx")
-  print("La base de datos 'Result/Clean_data/Feedback/Feedback.xlsx' se ha guardado de manera correcta")
+  base_datos1 <- writexl::write_xlsx(list("Base de datos" = jmmi_colombia), "Result/Clean_data/Feedback/Feedback_Comercio.xlsx")
+  print("La base de datos 'Result/Clean_data/Feedback/Feedback_Comercio.xlsx' se ha guardado de manera correcta")
   cat("\n")
 
 
