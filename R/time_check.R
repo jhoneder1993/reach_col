@@ -3,6 +3,9 @@
 #' Sirve para identifar encuestas que no se encuentran dentro del tiempo estipulado
 #'
 #' @param df La base de datos con las columnas start & end o inicio & final
+#' @param time_min tiempo minimo de encuesta en minutos
+#' @param time_max tiempo maximo de encuesta en minutos
+#' @param uuid como aparece el uuid en la base de datos
 #'
 #' @return Base de datos con uuid, interview_duration y CHECK_interview_duration
 #' @export
