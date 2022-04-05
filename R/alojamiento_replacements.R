@@ -4,14 +4,24 @@
 #'
 #' @param df dataframe
 #'
-#' @return Dataframe con sin los numeros 888 y 999
+#' @return Dataframe con sin los numeros 888, 999 y sin las encuenesta donde no dieron el consentimiento
 #' @export
 #'
-#' @examples output <- replacements_alojamiento(base_datos)
-#' @examples output <- replacements_alojamiento(df = base_datos)
+#' @examples output <- alojamiento_replacements(base_datos)
+#' @examples output <- alojamiento_replacements(df = base_datos)
 
 
 alojamiento_replacements <- function(df){
+  # Eliminar las encuestas que no tenian el consentimiento
+  eliminar <- df %>% filter(consentimiento == "No") %>% select(`uuid`)
+
+  print("Los siguientes uuid se van a eliminar debido a que no dieron el cosentimiento para realizar la encuesta: ")
+  print(eliminar)
+  cat("\n")
+
+  # Dejar la base de datos sin los datos de consentimiento
+  df <- df %>% filter(consentimiento != "No")
+
   ##Cambiar los valores 999 y 888 por No sabe y Se rehúsa a responder
   pos <- c("num_hogar", "num_nohogar", "inodoro_compt", "inodoro_indiv", "cuarto_prva", "cuarto_compt",
            "ducha_compt", "ducha_indiv", "lavamanos_compt", "lavamanos_indiv", "cocina_compt",
