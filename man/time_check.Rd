@@ -8,6 +8,12 @@ time_check(df, time_min = 5, time_max = 60, uuid = "_uuid")
 }
 \arguments{
 \item{df}{La base de datos con las columnas start & end o inicio & final}
+
+\item{time_min}{tiempo minimo de encuesta en minutos}
+
+\item{time_max}{tiempo maximo de encuesta en minutos}
+
+\item{uuid}{como aparece el uuid en la base de datos}
 }
 \value{
 Base de datos con uuid, interview_duration y CHECK_interview_duration

@@ -10,12 +10,12 @@ alojamiento_replacements(df)
 \item{df}{dataframe}
 }
 \value{
-Dataframe con sin los numeros 888 y 999
+Dataframe con sin los numeros 888, 999 y sin las encuenesta donde no dieron el consentimiento
 }
 \description{
 Variables con 999 o 888 las cambia a no sabe o se rehusa a responder
 }
 \examples{
-output <- replacements_alojamiento(base_datos)
-output <- replacements_alojamiento(df = base_datos)
+output <- alojamiento_replacements(base_datos)
+output <- alojamiento_replacements(df = base_datos)
 }
