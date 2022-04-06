@@ -1,13 +1,13 @@
 Package: JmmiColombia
 Title: Realiza la limpieza de los datos obtenidos en el JMMI Colombia
-Version: 0.0.0.9000
+Version: 1.0.0
 Authors@R: 
     person("Jhon", 
             "Montero", ,
             "jhon.montero@reach-initiative.org", 
             role = c("aut", "cre"),
             comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: Para Jmmi Colombia seguir los siguientes pasos kobo_to_r, import_rename, full_reshape, cleaning.
+Description: Paquete utilizado para hacer limpieza de datos de los JMMIs Colombia, con funciones adicionales para otros proyectos como kobo_to_r, time_check, incorporate_logs, find_outliers, find_other_responses.
 License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
     license
 Encoding: UTF-8
