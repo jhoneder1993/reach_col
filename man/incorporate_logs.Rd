@@ -16,18 +16,20 @@ incorporate_logs(
 
 \item{cleaning_log}{dataframe de los cambios a realizar}
 
+\item{df_group_seprator}{Si en los multiples esta separado por "/", " ", "."}
+
 \item{uuid_col}{Como se encuentra escrito el uuid en la base de datos}
 }
 \value{
-Lista con el archivo cleaned_df
+Lista con el archivo cleaned_df que es la base de datos a la cual se le realizo la limpieza
 
-Lista con el archivo master_cleaning_log
+Lista con el archivo master_cleaning_log de los registros que se aplicaron o no se aplicaron a los datos
 
-Lista con el archivo logs_not_in_rawDF
+Lista con el archivo logs_not_in_rawDF de los registros cuyo nombre de la pregunta o uuid no esta disponible en los base de datos
 
-Lista con el archivo cleaning_log.appli
+Lista con el archivo cleaning_log.appli de los registros de limpieza que se aplico a los datos brutos
 
-Lista con el archivo duplicate_logs
+Lista con el archivo duplicate_logs de los registros duplicados
 }
 \description{
 Sirve para realizar los ajustes a la base de datos segun el uuid, variable, valor anterior y valor nuevo. Tambien se debe tener en cuenta en el archivo de cleaning_log que los ajustes se realizaran a los que tengan 'si' en la variable changed

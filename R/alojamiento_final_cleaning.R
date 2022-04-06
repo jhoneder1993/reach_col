@@ -61,13 +61,13 @@ alojamiento_final_cleaning <- function(df){
 
   # Guardar excel
   dir_df_ <- writexl::write_xlsx(list("Clean data" = df_HQ),
-                                 "Result/Clean_data/HQ/MMICOL_Dataset_alojamiento.xlsx")
+                                 "Result/Clean_data/HQ/JMMICOL_Dataset_alojamiento.xlsx")
 
   lista[["base_datos_HQ"]] <- data.table(df_HQ)
 
   # mostrar ejecucion
   cat("\n")
-  print("La bases de datos para HQ 'Result/Clean_data/HQ/MMICOL_Dataset_alojamiento.xlsx' se han guardado de manera correcta.")
+  print("La bases de datos para HQ 'Result/Clean_data/HQ/JMMICOL_Dataset_alojamiento.xlsx' se han guardado de manera correcta.")
   cat("\n")
 
   ##Datos para GIS
