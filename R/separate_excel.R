@@ -8,10 +8,12 @@
 #' @param variable variable con la cual separar los archivos de excel
 #' @param eliminar conjunto de nombres de las variables a eliminar si hay datos personales
 #'
-#' @return
+#' @return excel separados por la variable suministrada en la ruta Result/Clean_data/individuals/BD_..
 #' @export
 #'
-#' @examples
+#' @examples eliminar= c("_notes", "_status", "_submitted_by", "_tags", "_submission__notes", "_submission__tags")
+#' @examples separate_excel(base_merge, "organizacion", eliminar)
+#' @examples separate_excel(df = base_merge, variable = "organizacion", borrar = eliminar)
 
 
 separate_excel <- function(df, variable="organizacion", borrar=c()){
