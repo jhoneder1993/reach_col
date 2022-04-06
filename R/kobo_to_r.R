@@ -24,9 +24,9 @@ kobo_to_r <- function(encuesta, choices){
   lista <- list()
   for(i in 1:length(excel_sheets(encuesta))){
     hojas = excel_sheets(encuesta)
-    namesheet <- hojas[i]
-    print(paste('INICIAMOS EL SHEET', i, ":", namesheet))
-    xls1 = read_excel(encuesta, i)
+    namesheet <- hojas[i]  # Cambiar a i
+    print(paste('INICIAMOS EL SHEET', i, ":", namesheet))  # Cambiar a i
+    xls1 = read_excel(encuesta, i)  # Cambiar a i
     #pasar todo a character
     xls1 <- setNames(data.frame(lapply(xls1, as.character)),
                      colnames(xls1))
@@ -84,6 +84,26 @@ kobo_to_r <- function(encuesta, choices){
       }
     }
 
+    ## Colocar los dato del select_multiple para despues pasar de numero a el valor
+    for (i in 1:length(names(xls1))){
+      for (j in 1:length(dataset$Nombre)){
+        if (names(xls1[i]) == dataset$Nombre[j] & dataset$Type[j] == "select_multiple" & !(names(xls1[i]) %ilike% " ")){
+          xls1[[i]] <- paste(dataset$Choice[j], xls1[[i]], sep = "")
+        }
+      }
+    }
+
+    # Completar los select_multiple, cambiar los espacios por el titulo
+    for (i in 1:length(names(xls1))){
+      for (j in 1:length(dataset$Nombre)){
+        if (names(xls1[i]) == dataset$Nombre[j] & dataset$Type[j] == "select_multiple" & !(names(xls1[i]) %ilike% " ")){
+          # Se separa con // para hacerlo mas legible
+          xls1[[i]] <- gsub(" ", paste("  // ", dataset$Choice[j], sep = ""), xls1[[i]])
+        }
+      }
+    }
+
+
     ##Quitar los datos que tienen el nombre con NA
     for (i in 1:length(names(xls1))) {
       for (j in 1:length(xls1[[3]])){
@@ -97,12 +117,27 @@ kobo_to_r <- function(encuesta, choices){
       }
     }
 
-    ##Pasar de numeros a los valores del cuestionario
+    # Pasar los select multiples de numeros a los valores del cuestionario
+    for (i in names(xls1)){
+      x <- dataset %>% filter(Nombre == i)
+      if (x$Type == "select_multiple" & !(i %ilike% " ")){
+        filtro <- choices %>% filter(list_name == x$Choice)
+        xls1[[i]] <- paste(xls1[[i]], " ", sep = "")
+        for (z in 1:nrow(filtro)){
+          xls1[[i]] <- gsub(paste(filtro[["concated_column"]][z], " ", sep = ""), paste(filtro[["label"]][z], "", sep = "") , xls1[[i]])
+          # Ajustar los "NA " creados a NA
+          xls1[[i]] <- gsub("NA ", NA, xls1[[i]])
+        }
+      }
+    }
+
+    ## Pasar los datos restantes de numeros a los valores del cuestionario
     for (i in names(xls1)) {
       if(sum(is.na(choices$label[match(xls1[[i]],choices$concated_column)])) < length(xls1[[3]])){
         xls1[i] <- choices$label[match(xls1[[i]],choices$concated_column)]
       }
     }
+
 
     ##Generar los dataframe con el mismo nombre de la hoja de excel
     ##(paste(namesheet, " ", sep = ""), xls1)

@@ -4,14 +4,14 @@
 #'
 #' @param raw_df dataframe
 #' @param cleaning_log dataframe de los cambios a realizar
-#' @param df_group_seprator
+#' @param df_group_seprator Si en los multiples esta separado por "/", " ", "."
 #' @param uuid_col Como se encuentra escrito el uuid en la base de datos
 #'
-#' @return Lista con el archivo cleaned_df
-#' @return Lista con el archivo master_cleaning_log
-#' @return Lista con el archivo logs_not_in_rawDF
-#' @return Lista con el archivo cleaning_log.appli
-#' @return Lista con el archivo duplicate_logs
+#' @return Lista con el archivo cleaned_df que es la base de datos a la cual se le realizo la limpieza
+#' @return Lista con el archivo master_cleaning_log de los registros que se aplicaron o no se aplicaron a los datos
+#' @return Lista con el archivo logs_not_in_rawDF de los registros cuyo nombre de la pregunta o uuid no esta disponible en los base de datos
+#' @return Lista con el archivo cleaning_log.appli de los registros de limpieza que se aplico a los datos brutos
+#' @return Lista con el archivo duplicate_logs de los registros duplicados
 #' @export
 #'
 #' @examples incorprated_logs <- incorporate_logs(my_df, cleaning_log, uuid_col = "uuid")

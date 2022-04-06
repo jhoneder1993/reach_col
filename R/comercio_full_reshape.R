@@ -47,10 +47,10 @@ comercio_full_reshape <- function(encuesta, etiquetas, choices){
   ## Concatenar para ver y eliminar los duplicados
   abas[["conca"]] <- paste(abas[["id_alimento"]], abas[["_submission__uuid"]], sep = "_")
   #uuid repetidos
-  duplicados <- abas %>% filter(duplicated(conca)) %>% select(`_submission__uuid`)
+  duplicados <- abas %>% filter(duplicated(conca)) %>% select(`_submission__uuid`, id_alimento)
 
-  print("Datos duplicados que fueron eliminados: ")
-  print(duplicados["_submission__uuid"])
+  print("Datos duplicados de abastecimientonuevo_repeat que fueron eliminados: ")
+  print(duplicados)
   cat("\n")
 
   # Eliminar duplicados
@@ -99,10 +99,10 @@ comercio_full_reshape <- function(encuesta, etiquetas, choices){
   ## Concatenar para ver y eliminar los duplicados
   food[["conca"]] <- paste(food[["id_alimento_my"]], food[["_submission__uuid"]], sep = "_")
   #uuid repetidos
-  duplicados <- food %>% filter(duplicated(conca)) %>% select(`_submission__uuid`)
+  duplicados <- food %>% filter(duplicated(conca)) %>% select(`_submission__uuid`, id_alimento_my)
 
-  print("Datos duplicados que fueron eliminados: ")
-  print(duplicados["_submission__uuid"])
+  print("Datos duplicados de repeat_food_ant que fueron eliminados: ")
+  print(duplicados)
   cat("\n")
 
   # Eliminar duplicados
@@ -146,10 +146,10 @@ comercio_full_reshape <- function(encuesta, etiquetas, choices){
   ## Concatenar para ver y eliminar los duplicados
   non_food[["conca"]] <- paste(non_food[["id_no_alimento_my"]], non_food[["_submission__uuid"]], sep = "_")
   #uuid repetidos
-  duplicados <- non_food %>% filter(duplicated(conca)) %>% select(`_submission__uuid`)
+  duplicados <- non_food %>% filter(duplicated(conca)) %>% select(`_submission__uuid`, id_no_alimento_my)
 
-  print("Datos duplicados que fueron eliminados: ")
-  print(duplicados["_submission__uuid"])
+  print("Datos duplicados de repeat_no_food_ant que fueron eliminados: ")
+  print(duplicados)
   cat("\n")
 
   # Eliminar duplicados

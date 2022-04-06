@@ -46,10 +46,10 @@ alojamiento_full_reshape <- function(encuesta, etiquetas, choices){
   ## Concatenar para ver y eliminar los duplicados
   servicios[["conca"]] <- paste(servicios[["id_servicios"]], servicios[["_submission__uuid"]], sep = "_")
   #uuid repetidos
-  duplicados <- servicios %>% filter(duplicated(conca)) %>% select(`_submission__uuid`)
+  duplicados <- servicios %>% filter(duplicated(conca)) %>% select(`_submission__uuid`, id_servicios)
 
-  print("Datos duplicados que fueron eliminados: ")
-  print(duplicados["_submission__uuid"])
+  print("Datos duplicados de pago_servicios_grp que fueron eliminados: ")
+  print(duplicados)
   cat("\n")
 
   # Eliminar duplicados
@@ -90,10 +90,10 @@ alojamiento_full_reshape <- function(encuesta, etiquetas, choices){
   ## Concatenar para ver y eliminar los duplicados
   facilidades[["conca"]] <- paste(facilidades[["id_facilidades"]], facilidades[["_submission__uuid"]], sep = "_")
   #uuid repetidos
-  duplicados <- facilidades %>% filter(duplicated(conca)) %>% select(`_submission__uuid`)
+  duplicados <- facilidades %>% filter(duplicated(conca)) %>% select(`_submission__uuid`, id_facilidades)
 
-  print("Datos duplicados que fueron eliminados: ")
-  print(duplicados["_submission__uuid"])
+  print("Datos duplicados de pago_facilidades que fueron eliminados: ")
+  print(duplicados)
   cat("\n")
 
   # Eliminar duplicados
