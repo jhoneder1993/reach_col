@@ -433,7 +433,7 @@ alojamiento_checks <- function(base_datos){
 
   ## Cantidad casa o apartamento
   base_datos15 <- base_datos
-  base_datos15 <- base_datos15 %>% filter(tipo_alojamiento == "Pagadiario o pasa día")
+  base_datos15 <- base_datos15 %>% filter(tipo_alojamiento == "Casa o apartamento")
   variables <- c("cantidad_pago1", "valor_ant_alojamiento1", "deposito_cash", "pago_adelantado", "pago_formal")
 
   if (nrow(base_datos15) > 0){
