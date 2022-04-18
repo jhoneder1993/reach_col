@@ -14,10 +14,15 @@ separate_excel(df, variable = "organizacion", borrar = c())
 \item{eliminar}{conjunto de nombres de las variables a eliminar si hay datos personales}
 }
 \value{
-
+excel separados por la variable suministrada en la ruta Result/Clean_data/individuals/BD_..
 }
 \description{
 Genera salidas individuales segun la variable ingresada, ej. si la variable utilizada es
 organizacion genera salida segun las organizaciones que se tengan.
 los archivos se guardan en la ruta Result/Clean_data/individuals/BD_..
+}
+\examples{
+eliminar= c("_notes", "_status", "_submitted_by", "_tags", "_submission__notes", "_submission__tags")
+separate_excel(base_merge, "organizacion", eliminar)
+separate_excel(df = base_merge, variable = "organizacion", borrar = eliminar)
 }

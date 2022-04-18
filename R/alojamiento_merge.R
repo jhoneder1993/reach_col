@@ -81,12 +81,12 @@ alojamiento_merge <- function(base_datos){
                  "implicaciones_contrato 2", "implicaciones_contrato 3", "implicaciones_contrato 4", "implicaciones_contrato 5",
                  "implicaciones_contrato 6", "implicaciones_contrato 7", "implicaciones_contrato 8", "implicaciones_contrato 9",
                  "implicaciones_contrato 10", "implicaciones_contrato -999", "implicaciones_contrato -888", "incumplimiento 1",
-                 "incumplimiento 2", "incumplimiento 3", "incumplimiento 4", "incumplimiento 5", "incumplimiento 6", "incumplimiento 8",
-                 "incumplimiento -999", "incumplimiento -888", "razones_desalojo 1", "razones_desalojo 2", "razones_desalojo 3",
-                 "razones_desalojo 4", "razones_desalojo 5", "razones_desalojo 6", "razones_desalojo 7", "razones_desalojo 8",
-                 "razones_desalojo -999", "razones_desalojo -888", "razones_aloj 1", "razones_aloj 2", "razones_aloj 3",
-                 "razones_aloj 4", "razones_aloj 5", "razones_aloj 6", "razones_aloj 7", "razones_aloj 8",
-                 "razones_aloj -999", "razones_aloj -888")
+                 "incumplimiento 2", "incumplimiento 3", "incumplimiento 4", "incumplimiento 5", "incumplimiento 6",
+                 "incumplimiento 7", "incumplimiento 8", "incumplimiento 9", "incumplimiento -999", "incumplimiento -888",
+                 "razones_desalojo 1", "razones_desalojo 2", "razones_desalojo 3", "razones_desalojo 4", "razones_desalojo 5",
+                 "razones_desalojo 6", "razones_desalojo 7", "razones_desalojo 8", "razones_desalojo -999", "razones_desalojo -888",
+                 "razones_aloj 1", "razones_aloj 2", "razones_aloj 3", "razones_aloj 4", "razones_aloj 5", "razones_aloj 6",
+                 "razones_aloj 7", "razones_aloj 8", "razones_aloj -999", "razones_aloj -888")
 
   ## datos que si existen
   existen <- data.frame(Nombre = character())
