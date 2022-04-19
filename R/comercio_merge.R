@@ -145,7 +145,11 @@ comercio_merge <- function(base_datos){
                  "desafs_reabast_esp 13", "desafs_reabast_esp 14", "desafs_reabast_esp 15", "desafs_reabast_esp 16",
                  "desafs_reabast_esp 17", "desafs_reabast_esp 18", "desafs_reabast_esp -999", "desafs_reabast_esp -888",
                  "transporte 1", "transporte 2", "transporte 3", "transporte 4", "transporte 5", "transporte 6", "transporte 7",
-                 "transporte 8", "transporte 9", "transporte 10", "transporte 11", "transporte -999", "transporte -888")
+                 "transporte 8", "transporte 9", "transporte 10", "transporte 11", "transporte -999", "transporte -888",
+                 "aumento_alimentos 1", "aumento_alimentos 2", "aumento_alimentos 3", "aumento_alimentos 4", "aumento_alimentos 5",
+                 "aumento_alimentos 6", "aumento_alimentos 7", "aumento_alimentos 8", "aumento_alimentos 9", "aumento_alimentos 10",
+                 "aumento_alimentos 11", "aumento_alimentos 12", "aumento_alimentos 13", "aumento_alimentos 14", "aumento_alimentos 15",
+                 "aumento_alimentos -999", "aumento_alimentos -888")
 
   ## datos que si existen
   existen <- data.frame(Nombre = character())
