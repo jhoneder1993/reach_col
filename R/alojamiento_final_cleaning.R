@@ -41,10 +41,10 @@ alojamiento_final_cleaning <- function(df){
   # Organizar las columnas con los datos existentes
   df2 <- df2 %>% relocate(organizar$Nombre, .after = valor_servicio_4)
 
-  # Cambiar -888 y -999 por vacios
-  df2[["cantidad_pago1"]] <- case_when(df2$cantidad_pago1 ==  "-888" ~ "",
-                                       df2$cantidad_pago1 == "-999" ~ "",
-                                       TRUE ~ df2$cantidad_pago1)
+  ## Cambiar -888 y -999 por vacios
+  #df2[["cantidad_pago1"]] <- case_when(df2$cantidad_pago1 ==  "-888" ~ "",
+  #                                     df2$cantidad_pago1 == "-999" ~ "",
+  #                                     TRUE ~ df2$cantidad_pago1)
 
   ## Datos para HQ
   # borrar variables
