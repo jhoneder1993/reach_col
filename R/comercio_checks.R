@@ -128,6 +128,68 @@ comercio_checks <- function(base_datos){
     cat("\n")
   }
 
+
+  # dias locos no alimento
+  base_datos6 <- base_datos
+
+  variables <- c("dias_exisnc_no_alimento_ant_1", "dias_exisnc_no_alimento_ant_2", "dias_exisnc_no_alimento_ant_3",
+                 "dias_exisnc_no_alimento_ant_4", "dias_exisnc_no_alimento_ant_5", "dias_exisnc_no_alimento_ant_6",
+                 "dias_exisnc_no_alimento_ant_7", "dias_exisnc_no_alimento_ant_8", "dias_exisnc_no_alimento_ant_9")
+
+  if (nrow(base_datos6) > 0){
+    for (i in variables){
+      # Nombre de la nueva columna
+      name <- paste("Z", i, sep = "_")
+      #valor de la columna
+      valor <- as.numeric(base_datos6[[i]]);
+      #promedio de la columna de la que toma el valor
+      mean_i <- mean(as.numeric(base_datos6[[i]]), na.rm = TRUE)
+      #des. estandar de la columna de la que toma el valor
+      sd_i <- sd(as.numeric(base_datos6[[i]]), na.rm = TRUE)
+
+      # Nuevo valor de la columna calculado
+      base_datos6[[name]] <- (abs(valor - mean_i) / sd_i)
+
+      # Datos > 2 van a quedar con 1, o sea atipicos
+      for (j in 1:nrow(base_datos6)) {
+        if(replace_na(base_datos6[[name]][j], 0) > 2){
+          base_datos6[[name]][j] <- 1
+        }else{
+          base_datos6[[name]][j] <- 0
+        }
+      }
+    }
+
+    dejar <- c("_index", "_uuid", "inicio", "final", "municipio", "nombre_mercado", "nombre_negocio",
+               "encuestador", "fecha_encuesta", "organizacion",
+               "dias_exisnc_no_alimento_ant_1", "dias_exisnc_no_alimento_ant_2", "dias_exisnc_no_alimento_ant_3",
+               "dias_exisnc_no_alimento_ant_4", "dias_exisnc_no_alimento_ant_5", "dias_exisnc_no_alimento_ant_6",
+               "dias_exisnc_no_alimento_ant_7", "dias_exisnc_no_alimento_ant_8", "dias_exisnc_no_alimento_ant_9",
+               "Z_dias_exisnc_no_alimento_ant_1", "Z_dias_exisnc_no_alimento_ant_2", "Z_dias_exisnc_no_alimento_ant_3",
+               "Z_dias_exisnc_no_alimento_ant_4", "Z_dias_exisnc_no_alimento_ant_5", "Z_dias_exisnc_no_alimento_ant_6",
+               "Z_dias_exisnc_no_alimento_ant_7", "Z_dias_exisnc_no_alimento_ant_8", "Z_dias_exisnc_no_alimento_ant_9")
+
+    base_datos6 <- base_datos6[,(names(base_datos6)) %in% dejar]
+
+    base_datos6 <- base_datos6 %>% filter(Z_dias_exisnc_no_alimento_ant_1 == 1 | Z_dias_exisnc_no_alimento_ant_2 == 1 |
+                                            Z_dias_exisnc_no_alimento_ant_3 == 1 | Z_dias_exisnc_no_alimento_ant_4 == 1 |
+                                            Z_dias_exisnc_no_alimento_ant_5 == 1 | Z_dias_exisnc_no_alimento_ant_6 == 1 |
+                                            Z_dias_exisnc_no_alimento_ant_7 == 1 | Z_dias_exisnc_no_alimento_ant_8 == 1 |
+                                            Z_dias_exisnc_no_alimento_ant_9 == 1)
+
+    lista[["dias_no_alimento"]] <- base_datos6
+
+    #print avance
+    print("La base de datos 'dias_no_alimento' se ha ejecutado de manera correcta.")
+    cat("\n")
+
+  } else {
+    #print avance
+    print("No hay datos para 'dias_no_alimento'. se ha ejecutado de manera correcta.")
+    cat("\n")
+  }
+
+
   # Revisar otros
   base_datos4 <- base_datos
 
@@ -182,6 +244,7 @@ comercio_checks <- function(base_datos){
 
   dir_base_datos <- writexl::write_xlsx(list("InventariosLocos" = base_datos2,
                                              "PreciosLocos" = base_datos3,
+                                             "dias_no_alimento" = base_datos6,
                                              "OTROS" = base_datos4,
                                              "GIS_Nombres" = base_datos5),
                                         paste("Result/Clean_data/Check/REACH_Checks_JMMICOL_R4_Total.xlsx", sep = ""))
