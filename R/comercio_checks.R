@@ -134,7 +134,9 @@ comercio_checks <- function(base_datos){
 
   variables <- c("dias_exisnc_no_alimento_ant_1", "dias_exisnc_no_alimento_ant_2", "dias_exisnc_no_alimento_ant_3",
                  "dias_exisnc_no_alimento_ant_4", "dias_exisnc_no_alimento_ant_5", "dias_exisnc_no_alimento_ant_6",
-                 "dias_exisnc_no_alimento_ant_7", "dias_exisnc_no_alimento_ant_8", "dias_exisnc_no_alimento_ant_9")
+                 "dias_exisnc_no_alimento_ant_7", "dias_exisnc_no_alimento_ant_8")
+  base_datos6$dias_exisnc_no
+
 
   if (nrow(base_datos6) > 0){
     for (i in variables){
@@ -164,18 +166,17 @@ comercio_checks <- function(base_datos){
                "encuestador", "fecha_encuesta", "organizacion",
                "dias_exisnc_no_alimento_ant_1", "dias_exisnc_no_alimento_ant_2", "dias_exisnc_no_alimento_ant_3",
                "dias_exisnc_no_alimento_ant_4", "dias_exisnc_no_alimento_ant_5", "dias_exisnc_no_alimento_ant_6",
-               "dias_exisnc_no_alimento_ant_7", "dias_exisnc_no_alimento_ant_8", "dias_exisnc_no_alimento_ant_9",
+               "dias_exisnc_no_alimento_ant_7", "dias_exisnc_no_alimento_ant_8",
                "Z_dias_exisnc_no_alimento_ant_1", "Z_dias_exisnc_no_alimento_ant_2", "Z_dias_exisnc_no_alimento_ant_3",
                "Z_dias_exisnc_no_alimento_ant_4", "Z_dias_exisnc_no_alimento_ant_5", "Z_dias_exisnc_no_alimento_ant_6",
-               "Z_dias_exisnc_no_alimento_ant_7", "Z_dias_exisnc_no_alimento_ant_8", "Z_dias_exisnc_no_alimento_ant_9")
+               "Z_dias_exisnc_no_alimento_ant_7", "Z_dias_exisnc_no_alimento_ant_8")
 
     base_datos6 <- base_datos6[,(names(base_datos6)) %in% dejar]
 
     base_datos6 <- base_datos6 %>% filter(Z_dias_exisnc_no_alimento_ant_1 == 1 | Z_dias_exisnc_no_alimento_ant_2 == 1 |
                                             Z_dias_exisnc_no_alimento_ant_3 == 1 | Z_dias_exisnc_no_alimento_ant_4 == 1 |
                                             Z_dias_exisnc_no_alimento_ant_5 == 1 | Z_dias_exisnc_no_alimento_ant_6 == 1 |
-                                            Z_dias_exisnc_no_alimento_ant_7 == 1 | Z_dias_exisnc_no_alimento_ant_8 == 1 |
-                                            Z_dias_exisnc_no_alimento_ant_9 == 1)
+                                            Z_dias_exisnc_no_alimento_ant_7 == 1 | Z_dias_exisnc_no_alimento_ant_8 == 1)
 
     lista[["dias_no_alimento"]] <- base_datos6
 
