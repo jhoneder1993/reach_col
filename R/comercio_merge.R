@@ -22,7 +22,7 @@ comercio_merge <- function(base_datos){
 
   ### Borrar duplicados
   ## ver si hay uuid repetidos en la pagina principal
-  duplicados <- base_datos$JMMI_COLOMBIA %>% filter (duplicated("_uuid")) %>% select("_uuid")
+  duplicados <- base_datos$JMMI_COLOMBIA %>% filter(duplicated(`_uuid`)) %>% select("_uuid")
   print(paste("Se encuentran los siguientes uuid  (" , length(duplicados[["_uuid"]]), ") duplicados en JMMI_COLOMBIA, los cuales seran eliminados:"))
   print(duplicados[["_uuid"]])
   cat("\n")
