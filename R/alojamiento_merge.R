@@ -42,13 +42,13 @@ alojamiento_merge <- function(base_datos){
   jmmi_colombia <- merge(x = jmmi_colombia, y = facilidades, by = "_uuid" , all.x = TRUE)
 
   ## Eliminar duplicados
-  duplicados <- jmmi_colombia %>% filter(duplicated("_uuid")) %>% select("_uuid")
+  duplicados <- jmmi_colombia %>% filter(duplicated(`_uuid`)) %>% select("_uuid")
   print(paste("Se encuentran los siguientes uuid  (" , length(duplicados[["_uuid"]]), ") duplicados en JMMI_COLOMBIA, los cuales seran eliminados:"))
   print(duplicados[["_uuid"]])
   cat("\n")
 
   # se deja los restantes sin duplicados
-  jmmi_colombia <- jmmi_colombia %>% filter(!duplicated("_uuid"))
+  jmmi_colombia <- jmmi_colombia %>% filter(!duplicated(`_uuid`))
   jmmi_colombia
 
   # Organizar las columnas con los datos existentes
