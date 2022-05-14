@@ -4,12 +4,12 @@
 \alias{kobo_to_r}
 \title{Kobo to R}
 \usage{
-kobo_to_r(encuesta, choices)
+kobo_to_r(encuesta, choices, survey)
 }
 \arguments{
 \item{encuesta}{El parametro encuesta sera el directorio con el archivo descargado de kobo}
 
-\item{choices}{El parametro choices es la hoja Choices de la herramienta Kobo}
+\item{choices}{El parametro survey es la hoja Survey de la herramienta Kobo}
 }
 \value{
 \itemize{

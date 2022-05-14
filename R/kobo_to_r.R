@@ -4,6 +4,7 @@
 #'
 #' @param encuesta El parametro encuesta sera el directorio con el archivo descargado de kobo
 #' @param choices El parametro choices es la hoja Choices de la herramienta Kobo
+#' @param choices El parametro survey es la hoja Survey de la herramienta Kobo
 #'
 #' @return - Una lista con los dataframe de todas las hojas de la encuesta y la convierte de numeros a los labels
 #' @export
@@ -19,7 +20,7 @@
 #' @examples base <- kobo_to_r(encuesta = directorio2, choices = choices)
 
 
-kobo_to_r <- function(encuesta, choices){
+kobo_to_r <- function(encuesta, choices, survey){
   choices = choices %>% mutate(concated_column = paste(list_name, name, sep = ''))
   lista <- list()
   for(i in 1:length(excel_sheets(encuesta))){
