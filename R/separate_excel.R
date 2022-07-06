@@ -19,7 +19,11 @@
 separate_excel <- function(df, variable="organizacion", borrar=c()){
 
   # borrar variables
-  df <- df[ , !(names(df) %in% borrar)]
+  #df <- df[ , !(names(df) %in% borrar)] esto es para borrar de la tabla
+  # Borrar datos de la variable
+  for (i in borrar) {
+    df[[i]] <- NA
+  }
 
   ### Guardar bases de datos segun ORG
   nombres <- df %>% select(variable[1]) %>% unique()
