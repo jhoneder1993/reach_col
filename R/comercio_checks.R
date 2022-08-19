@@ -33,7 +33,7 @@ comercio_checks <- function(base_datos){
              "dias_exisnc_alimento_ant_5", "dias_exisnc_alimento_ant_6", "dias_exisnc_alimento_ant_7",
              "dias_exisnc_alimento_ant_8", "dias_exisnc_alimento_ant_9", "dias_exisnc_alimento_ant_10",
              "dias_exisnc_alimento_ant_11", "dias_exisnc_alimento_ant_12", "dias_exisnc_alimento_ant_13",
-             "dias_exisnc_alimento_ant_14", "dias_exisnc_alimento_ant_15")
+             "dias_exisnc_alimento_ant_14")
 
   base_datos2 <- base_datos2[,(names(base_datos2)) %in% dejar]
 
@@ -51,7 +51,7 @@ comercio_checks <- function(base_datos){
                  "precio_alimento_ant_4", "precio_alimento_ant_5", "precio_alimento_ant_6",
                  "precio_alimento_ant_7", "precio_alimento_ant_8", "precio_alimento_ant_9",
                  "precio_alimento_ant_10", "precio_alimento_ant_11", "precio_alimento_ant_12",
-                 "precio_alimento_ant_13", "precio_alimento_ant_14", "precio_alimento_ant_15",
+                 "precio_alimento_ant_13", "precio_alimento_ant_14",
                  "precio_no_alimento_ant_1", "precio_no_alimento_ant_2", "precio_no_alimento_ant_3",
                  "precio_no_alimento_ant_4", "precio_no_alimento_ant_5", "precio_no_alimento_ant_6",
                  "precio_no_alimento_ant_7", "precio_no_alimento_ant_8")
@@ -86,14 +86,14 @@ comercio_checks <- function(base_datos){
                "precio_alimento_ant_4", "precio_alimento_ant_5", "precio_alimento_ant_6",
                "precio_alimento_ant_7", "precio_alimento_ant_8", "precio_alimento_ant_9",
                "precio_alimento_ant_10", "precio_alimento_ant_11", "precio_alimento_ant_12",
-               "precio_alimento_ant_13", "precio_alimento_ant_14", "precio_alimento_ant_15",
+               "precio_alimento_ant_13", "precio_alimento_ant_14",
                "precio_no_alimento_ant_1", "precio_no_alimento_ant_2", "precio_no_alimento_ant_3",
                "precio_no_alimento_ant_4", "precio_no_alimento_ant_5", "precio_no_alimento_ant_6",
                "precio_no_alimento_ant_7", "precio_no_alimento_ant_8", "Z_precio_alimento_ant_1", "Z_precio_alimento_ant_2",
                "Z_precio_alimento_ant_3", "Z_precio_alimento_ant_4", "Z_precio_alimento_ant_5", "precio_alimento_ant_6",
                "Z_precio_alimento_ant_7", "Z_precio_alimento_ant_8", "Z_precio_alimento_ant_9",
                "Z_precio_alimento_ant_10", "Z_precio_alimento_ant_11", "Z_precio_alimento_ant_12",
-               "Z_precio_alimento_ant_13", "Z_precio_alimento_ant_14", "Z_precio_alimento_ant_15",
+               "Z_precio_alimento_ant_13", "Z_precio_alimento_ant_14",
                "Z_precio_no_alimento_ant_1", "Z_precio_no_alimento_ant_2", "Z_precio_no_alimento_ant_3",
                "Z_precio_no_alimento_ant_4", "Z_precio_no_alimento_ant_5", "Z_precio_no_alimento_ant_6",
                "Z_precio_no_alimento_ant_7", "Z_precio_no_alimento_ant_8")
@@ -105,7 +105,7 @@ comercio_checks <- function(base_datos){
                                             precio_alimento_ant_6 == 1 | Z_precio_alimento_ant_7 == 1 | Z_precio_alimento_ant_8 == 1 |
                                             Z_precio_alimento_ant_9 == 1 | Z_precio_alimento_ant_10 == 1 | Z_precio_alimento_ant_11 == 1 |
                                             Z_precio_alimento_ant_12 == 1 | Z_precio_alimento_ant_13 == 1 | Z_precio_alimento_ant_14 == 1 |
-                                            Z_precio_alimento_ant_15 == 1 | Z_precio_no_alimento_ant_1 == 1 | Z_precio_no_alimento_ant_2 == 1 |
+                                            Z_precio_no_alimento_ant_1 == 1 | Z_precio_no_alimento_ant_2 == 1 |
                                             Z_precio_no_alimento_ant_3 == 1 | Z_precio_no_alimento_ant_4 == 1 | Z_precio_no_alimento_ant_5 == 1 |
                                             Z_precio_no_alimento_ant_6 == 1 | Z_precio_no_alimento_ant_7 == 1 | Z_precio_no_alimento_ant_8 == 1)
 
