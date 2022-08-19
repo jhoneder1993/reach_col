@@ -39,14 +39,7 @@ comercio_checks <- function(base_datos){
 
   # Filtrar si tienen mas de 20 dias
   base_datos2 <- base_datos2 %>%
-    filter(as.numeric(dias_exisnc_alimento_ant_1) > 20 | as.numeric(dias_exisnc_alimento_ant_2) > 20 |
-             as.numeric(dias_exisnc_alimento_ant_3) > 20 | as.numeric(dias_exisnc_alimento_ant_4) > 20 |
-             as.numeric(dias_exisnc_alimento_ant_5) > 20 | as.numeric(dias_exisnc_alimento_ant_6) > 20 |
-             as.numeric(dias_exisnc_alimento_ant_7) > 20 | as.numeric(dias_exisnc_alimento_ant_8) > 20 |
-             as.numeric(dias_exisnc_alimento_ant_9) > 20 | as.numeric(dias_exisnc_alimento_ant_10) > 20 |
-             as.numeric(dias_exisnc_alimento_ant_11) > 20 | as.numeric(dias_exisnc_alimento_ant_12) > 20 |
-             as.numeric(dias_exisnc_alimento_ant_13) > 20 | as.numeric(dias_exisnc_alimento_ant_14) > 20 |
-             as.numeric(dias_exisnc_alimento_ant_15) > 20)
+    filter(if_any(starts_with("dias_exisnc_alimento_ant_"), ~ as.numeric(.) > 20))
 
   lista[["InventariosLocos"]] <- base_datos2
 

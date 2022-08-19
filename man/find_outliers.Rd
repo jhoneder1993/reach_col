@@ -20,3 +20,6 @@ Un dataframe con una fila por problema potencial. Tiene columnas para el índice
 Busca valores que estén fuera de más de tres desviaciones estándar de la media.
 Si se encuentran menos valores atípicos cuando los datos se transforman en logaritmos antes de la comprobación, sólo se devuelven los valores atípicos en los datos transformados en logaritmos.
 }
+\examples{
+outliers <- find_outliers(base_cleaning)
+}

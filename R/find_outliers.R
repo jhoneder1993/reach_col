@@ -10,7 +10,7 @@
 #' @return Un dataframe con una fila por problema potencial. Tiene columnas para el índice de fila correspondiente en los datos originales; el valor sospechoso; el nombre de la variable en el conjunto de datos original en el que se produjo el valor sospechoso; una descripción del tipo de problema.
 #' @export
 #'
-#' @examples
+#' @examples outliers <- find_outliers(base_cleaning)
 
 
 find_outliers <- function(data, sd_max_p=3, uuid="uuid") {
