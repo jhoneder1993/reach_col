@@ -4,7 +4,7 @@
 #'
 #' @param encuesta El parametro encuesta sera el dataframe de kobo
 #' @param choices El parametro choices es la hoja Choices de la herramienta Kobo
-#' @param choices El parametro survey es la hoja Survey de la herramienta Kobo
+#' @param survey El parametro survey es la hoja Survey de la herramienta Kobo
 #' @param label_name El parametro label_name es el nombre de la etiqueta a la que se quiere transformar los datos
 #'
 #' @return - Un dataframe de la encuesta y la convierte de numeros a los labels
