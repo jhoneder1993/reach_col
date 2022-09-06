@@ -64,7 +64,7 @@ change_select_multiple <- function(encuesta, choices, survey, sep = "/"){
   new.no <- readline(prompt = "Cual sera el nuevo valor para 0:  ")
 
   for (i in 1:nrow(dataset)) {
-    print(dataset[["Nombre"]][i])
+    #print(dataset[["Nombre"]][i])
     xls1[[dataset[["Nombre"]][i]]] <- as.character(xls1[[dataset[["Nombre"]][i]]])
     for (j in 1:nrow(xls1)) {
       if (replace_na(xls1[[dataset[["Nombre"]][i]]][j], "999") == "1") {
