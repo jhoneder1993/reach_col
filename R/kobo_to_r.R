@@ -139,6 +139,8 @@ kobo_to_r <- function(encuesta, choices, survey){
       }
     }
 
+    # Regresar de espacio a /
+    xls1 <- xls1 %>% rename_all(funs(str_replace_all(., " ", "/")))
 
     ##Generar los dataframe con el mismo nombre de la hoja de excel
     ##(paste(namesheet, " ", sep = ""), xls1)
