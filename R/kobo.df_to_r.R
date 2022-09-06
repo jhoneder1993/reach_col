@@ -140,5 +140,6 @@ kobo.df_to_r <- function(encuesta, choices, survey, label_name = "label"){
   ##Regrese la lista con los datos
   cat("\n")
   print("Funcion ejecutada con exito...")
+
   return(xls1)
 }
