@@ -133,7 +133,7 @@ kobo.df_to_r <- function(encuesta, choices, survey, label_name = "label"){
   for (i in 1:nrow(multiple)) {
     x <- round((i / nrow(multiple) * 100), 2)
     if (x %% 5 == 0) {
-      print(paste(x, "% realizado", sep = ""))
+      print(paste(x, "% de progreso...", sep = ""))
     }
 
     filtro <- choices %>% filter(list_name == multiple[["Choice"]][i])

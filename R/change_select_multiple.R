@@ -67,7 +67,7 @@ change_select_multiple <- function(encuesta, choices, survey, sep = "/"){
     # Aviso
     x <- round((i / nrow(multiple) * 100), 2)
     if (x %% 5 == 0) {
-      print(paste(x, "% realizado", sep = ""))
+      print(paste(x, "% de progreso...", sep = ""))
     }
 
     #print(dataset[["Nombre"]][i])
