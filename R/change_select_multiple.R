@@ -65,7 +65,7 @@ change_select_multiple <- function(encuesta, choices, survey, sep = "/"){
 
   for (i in 1:nrow(dataset)) {
     # Aviso
-    x <- round((i / nrow(multiple) * 100), 2)
+    x <- round((i / nrow(dataset) * 100), 2)
     if (x %% 5 == 0) {
       print(paste(x, "% de progreso...", sep = ""))
     }
