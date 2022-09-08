@@ -37,13 +37,13 @@ kobo.df_to_r <- function(encuesta, choices, survey, label_name = "label"){
                         Etiqueta = character())
 
   ##Colocar los nombres de la encuesta en fila
-  for (j in 1:length(names(xls1))) {
+  for (j in 1:ncol(xls1)) {
     dataset <- dataset %>% add_row(Nombre = names(xls1[j]))
   }
 
   #Colocar el tipo de dato que es para despues obterner los labels
-  for (a in 1:length(dataset$Nombre)) {
-    for (b in 1:length(survey$name)){
+  for (a in 1:nrow(dataset)) {
+    for (b in 1:nrow(survey)){
       new_name <- str_split(dataset$Nombre[a], " ")
       new_name <- new_name[[1]][1]
       if (new_name == (replace_na(survey$name[b], ""))) {
@@ -53,14 +53,14 @@ kobo.df_to_r <- function(encuesta, choices, survey, label_name = "label"){
   }
 
   ##Colocar choice
-  for (i in 1:length(dataset$Nombre)) {
+  for (i in 1:nrow(dataset)) {
     new_name <- str_split(dataset$Type[i], " ")
     new_name <- new_name[[1]][2]
     dataset$Choice[i] <- new_name
   }
 
   ##Tipo select_one o select_multiple
-  for (i in 1:length(dataset$Nombre)) {
+  for (i in 1:nrow(dataset)) {
     if (str_detect(replace_na(dataset$Type[i], ""), "select_multiple")){
       dataset$Type[i] <- "select_multiple"
     }else if(str_detect(replace_na(dataset$Type[i], ""), "select_one")){
@@ -71,8 +71,8 @@ kobo.df_to_r <- function(encuesta, choices, survey, label_name = "label"){
   }
 
   ##Colocar los dato del select_one para despues pasar de numero a el valor
-  for (i in 1:length(names(xls1))){
-    for (j in 1:length(dataset$Nombre)){
+  for (i in 1:ncol(xls1)){
+    for (j in 1:nrow(dataset)){
       if (names(xls1[i]) == dataset$Nombre[j] & dataset$Type[j] == "select_one"){
         xls1[[i]] <- paste(dataset$Choice[j], xls1[[i]], sep = "")
       }
@@ -80,8 +80,8 @@ kobo.df_to_r <- function(encuesta, choices, survey, label_name = "label"){
   }
 
   ## Colocar los dato del select_multiple para despues pasar de numero a el valor
-  for (i in 1:length(names(xls1))){
-    for (j in 1:length(dataset$Nombre)){
+  for (i in 1:ncol(xls1)){
+    for (j in 1:nrow(dataset)){
       if (names(xls1[i]) == dataset$Nombre[j] & dataset$Type[j] == "select_multiple" & !(names(xls1[i]) %ilike% " ")){
         xls1[[i]] <- paste(dataset$Choice[j], xls1[[i]], sep = "")
       }
@@ -89,8 +89,8 @@ kobo.df_to_r <- function(encuesta, choices, survey, label_name = "label"){
   }
 
   # Completar los select_multiple, cambiar los espacios por el titulo
-  for (i in 1:length(names(xls1))){
-    for (j in 1:length(dataset$Nombre)){
+  for (i in 1:ncol(xls1)){
+    for (j in 1:nrow(dataset)){
       if (names(xls1[i]) == dataset$Nombre[j] & dataset$Type[j] == "select_multiple" & !(names(xls1[i]) %ilike% " ")){
         # Se separa con // para hacerlo mas legible
         xls1[[i]] <- gsub(" ", paste("  // ", dataset$Choice[j], sep = ""), xls1[[i]])
@@ -100,38 +100,50 @@ kobo.df_to_r <- function(encuesta, choices, survey, label_name = "label"){
 
 
   ##Quitar los datos que tienen el nombre con NA
-  for (i in 1:length(names(xls1))) {
-    for (j in 1:length(xls1[[3]])){
-      x <- str_split(class(xls1[[i]]), " ")
-      x <- x[1]
-      if (x != "POSIXct") {
-        if (str_detect(replace_na(xls1[[i]][j], ""), "-----")) {
-          xls1[[i]][j] <- NA
-        }
-      }
-    }
+  for (i in names(xls1)) {
+    xls1 <- xls1 %>% mutate(!!sym(i) := case_when(str_detect(!!sym(i), "-----") ~ NA_character_,
+                                                  TRUE ~ !!sym(i)))
   }
 
   # Pasar los select multiples de numeros a los valores del cuestionario
-  for (i in names(xls1)){
-    x <- dataset %>% filter(Nombre == i)
-    if (x$Type == "select_multiple" & !(i %ilike% " ")){
-      filtro <- choices %>% filter(list_name == x$Choice)
-      xls1[[i]] <- paste(xls1[[i]], " ", sep = "")
-      for (z in 1:nrow(filtro)){
-        xls1[[i]] <- gsub(paste(filtro[["concated_column"]][z], " ", sep = ""), paste(filtro[[label_name]][z], "", sep = "") , xls1[[i]])
-        # Ajustar los "NA " creados a NA
-        xls1[[i]] <- gsub("NA ", NA, xls1[[i]])
-      }
+  multiple <- dataset %>% filter(Type == "select_multiple" & !(Nombre %ilike% " "))
+  for (i in 1:nrow(multiple)) {
+    filtro <- choices %>% filter(list_name == multiple[["Choice"]][i])
+    xls1[[multiple[["Nombre"]][i]]] <- paste(xls1[[multiple[["Nombre"]][i]]], " ", sep = "")
+    for (z in 1:nrow(filtro)){
+      xls1[[multiple[["Nombre"]][i]]] <- gsub(paste(filtro[["concated_column"]][z], " ", sep = ""), paste(filtro[[label_name]][z], "", sep = "") , xls1[[multiple[["Nombre"]][i]]])
+      # Ajustar los "NA " creados a NA
+      xls1[[multiple[["Nombre"]][i]]] <- gsub("NA ", NA, xls1[[multiple[["Nombre"]][i]]])
     }
   }
 
+
+  ##############################################################################
   ## Pasar los datos restantes de numeros a los valores del cuestionario
-  for (i in names(xls1)) {
-    if(sum(is.na(choices[[label_name]][match(xls1[[i]],choices$concated_column)])) < length(xls1[[3]])){
-      xls1[i] <- choices[[label_name]][match(xls1[[i]],choices$concated_column)]
+  xls2 <- xls1
+
+  multiple <- dataset %>% filter(Type != "select_multiple")
+  for (i in 1:nrow(multiple)) {
+    x <- round((i / nrow(multiple) * 100), 2)
+    if (x %% 5 == 0) {
+      print(paste(x, "% realizado", sep = ""))
+    }
+
+    filtro <- choices %>% filter(list_name == multiple[["Choice"]][i])
+    xls1[[multiple[["Nombre"]][i]]] <- paste(xls1[[multiple[["Nombre"]][i]]], " ", sep = "")
+    for (z in 1:nrow(filtro)){
+      xls1[[multiple[["Nombre"]][i]]] <- gsub(paste(filtro[["concated_column"]][z], " ", sep = ""), paste(filtro[[label_name]][z], "", sep = "") , xls1[[multiple[["Nombre"]][i]]])
+      # Ajustar los "NA " creados a NA
+      xls1[[multiple[["Nombre"]][i]]] <- gsub("NA ", NA, xls1[[multiple[["Nombre"]][i]]])
     }
   }
+
+  # Mach mas rapido pero si no se tienen todos los valores no sirve mucho
+  #for (i in names(xls1)) {
+  #  if(sum(is.na(choices[[label_name]][match(xls1[[i]],choices$concated_column)])) < ncol(xls1)){
+  #    xls1[i] <- choices[[label_name]][match(xls1[[i]],choices$concated_column)]
+  #  }
+  #}
 
   #regresar los datos de espacio a /
   xls1 <- xls1 %>% rename_all(funs(str_replace_all(., " ", "/")))
