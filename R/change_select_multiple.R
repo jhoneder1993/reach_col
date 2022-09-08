@@ -64,6 +64,12 @@ change_select_multiple <- function(encuesta, choices, survey, sep = "/"){
   new.no <- readline(prompt = "Cual sera el nuevo valor para 0:  ")
 
   for (i in 1:nrow(dataset)) {
+    # Aviso
+    x <- round((i / nrow(multiple) * 100), 2)
+    if (x %% 5 == 0) {
+      print(paste(x, "% realizado", sep = ""))
+    }
+
     #print(dataset[["Nombre"]][i])
     xls1[[dataset[["Nombre"]][i]]] <- as.character(xls1[[dataset[["Nombre"]][i]]])
     for (j in 1:nrow(xls1)) {
