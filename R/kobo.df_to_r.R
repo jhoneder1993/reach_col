@@ -52,6 +52,9 @@ kobo.df_to_r <- function(encuesta, choices, survey, label_name = "label"){
     }
   }
 
+  # Aviso
+  print("1/4 del script se ha ejecutado...")
+
   ##Colocar choice
   for (i in 1:nrow(dataset)) {
     new_name <- str_split(dataset$Type[i], " ")
@@ -78,6 +81,9 @@ kobo.df_to_r <- function(encuesta, choices, survey, label_name = "label"){
       }
     }
   }
+
+  # Aviso
+  print("2/4 del script se ha ejecutado...")
 
   ## Colocar los dato del select_multiple para despues pasar de numero a el valor
   for (i in 1:ncol(xls1)){
@@ -117,8 +123,9 @@ kobo.df_to_r <- function(encuesta, choices, survey, label_name = "label"){
     }
   }
 
+  # Aviso
+  print("3/4 del script se ha ejecutado...")
 
-  ##############################################################################
   ## Pasar los datos restantes de numeros a los valores del cuestionario
   xls2 <- xls1
 
