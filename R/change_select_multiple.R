@@ -64,21 +64,12 @@ change_select_multiple <- function(encuesta, choices, survey, sep = "/"){
   new.no <- readline(prompt = "Cual sera el nuevo valor para 0:  ")
 
   for (i in 1:nrow(dataset)) {
-    # Aviso
-    x <- round((i / nrow(dataset) * 100), 2)
-    if (x %% 5 == 0) {
-      print(paste(x, "% de progreso...", sep = ""))
-    }
+    var <- dataset[["Nombre"]][i]
+    xls1[[var]] <- as.character(xls1[[var]])
 
-    #print(dataset[["Nombre"]][i])
-    xls1[[dataset[["Nombre"]][i]]] <- as.character(xls1[[dataset[["Nombre"]][i]]])
-    for (j in 1:nrow(xls1)) {
-      if (replace_na(xls1[[dataset[["Nombre"]][i]]][j], "999") == "1") {
-        xls1[[dataset[["Nombre"]][i]]][j] <- new.si
-      }else if (replace_na(xls1[[dataset[["Nombre"]][i]]][j], "999") == "0") {
-        xls1[[dataset[["Nombre"]][i]]][j] <- new.no
-      }
-    }
+    xls1 <- xls1 %>% mutate(!!sym(var) := case_when(!!sym(var) == "1" ~ new.si,
+                                                    !!sym(var) == "0" ~ new.no,
+                                                    TRUE ~ NA_character_))
   }
 
   ##Regrese la lista con los datos

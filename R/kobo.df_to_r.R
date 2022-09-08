@@ -127,9 +127,7 @@ kobo.df_to_r <- function(encuesta, choices, survey, label_name = "label"){
   print("3/4 del script se ha ejecutado...")
 
   ## Pasar los datos restantes de numeros a los valores del cuestionario
-  xls2 <- xls1
-
-  multiple <- dataset %>% filter(Type != "select_multiple")
+  multiple <- dataset %>% filter(Type == "select_one")
   for (i in 1:nrow(multiple)) {
     x <- round((i / nrow(multiple) * 100), 2)
     if (x %% 5 == 0) {
