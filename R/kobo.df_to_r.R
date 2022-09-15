@@ -113,15 +113,21 @@ kobo.df_to_r <- function(encuesta, choices, survey, label_name = "label"){
 
   # Pasar los select multiples de numeros a los valores del cuestionario
   multiple <- dataset %>% filter(Type == "select_multiple" & !(Nombre %ilike% " "))
-  for (i in 1:nrow(multiple)) {
-    filtro <- choices %>% filter(list_name == multiple[["Choice"]][i])
-    xls1[[multiple[["Nombre"]][i]]] <- paste(xls1[[multiple[["Nombre"]][i]]], " ", sep = "")
-    for (z in 1:nrow(filtro)){
-      xls1[[multiple[["Nombre"]][i]]] <- gsub(paste(filtro[["concated_column"]][z], " ", sep = ""), paste(filtro[[label_name]][z], "", sep = "") , xls1[[multiple[["Nombre"]][i]]])
-      # Ajustar los "NA " creados a NA
-      xls1[[multiple[["Nombre"]][i]]] <- gsub("NA ", NA, xls1[[multiple[["Nombre"]][i]]])
+  if (nrow(multiple > 0)) {
+    for (i in 1:nrow(multiple)) {
+      filtro <- choices %>% filter(list_name == multiple[["Choice"]][i])
+      xls1[[multiple[["Nombre"]][i]]] <- paste(xls1[[multiple[["Nombre"]][i]]], " ", sep = "")
+      for (z in 1:nrow(filtro)){
+        xls1[[multiple[["Nombre"]][i]]] <- gsub(paste(filtro[["concated_column"]][z], " ", sep = ""), paste(filtro[[label_name]][z], "", sep = "") , xls1[[multiple[["Nombre"]][i]]])
+        # Ajustar los "NA " creados a NA
+        xls1[[multiple[["Nombre"]][i]]] <- gsub("NA ", NA, xls1[[multiple[["Nombre"]][i]]])
+      }
     }
+  } else {
+    print("Este DataFrame no tiene opciones multiples")
   }
+
+
 
   # Aviso
   print("3/4 del script se ha ejecutado...")
