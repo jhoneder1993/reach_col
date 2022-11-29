@@ -46,9 +46,8 @@ kobo.df_to_r <- function(encuesta, choices, survey, label_name = "label"){
 
   #Colocar el tipo de dato que es para despues obterner los labels
   for (a in 1:nrow(dataset)) {
-    print(a)
     for (b in 1:nrow(survey)){
-      new_name <- str_split(dataset$Nombre[25], " ")
+      new_name <- str_split(dataset$Nombre[a], " ")
       new_name <- new_name[[1]][1]
       if (!is.na(survey$name[b])) {
         if (new_name == survey$name[b]) {
