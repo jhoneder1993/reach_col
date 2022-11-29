@@ -29,7 +29,9 @@ kobo.df_to_r <- function(encuesta, choices, survey, label_name = "label"){
   #pasar los NA a *****
   xls1 <- xls1 %>% mutate(across(everything(), ~replace_na(.x, "-----")))
   #reemplazar los nombres de las variables
-  xls1 <- xls1 %>% rename_all(funs(str_replace_all(., "/", " ")))
+  colnames(xls1) = gsub("/", " ", colnames(xls1))
+
+  #xls1 <- xls1 %>% rename_all(funs(str_replace_all(., "/", " ")))
 
   dataset <- data.frame(Type = character(),
                         Choice = character(),
@@ -41,13 +43,17 @@ kobo.df_to_r <- function(encuesta, choices, survey, label_name = "label"){
     dataset <- dataset %>% add_row(Nombre = names(xls1[j]))
   }
 
+
   #Colocar el tipo de dato que es para despues obterner los labels
   for (a in 1:nrow(dataset)) {
+    print(a)
     for (b in 1:nrow(survey)){
-      new_name <- str_split(dataset$Nombre[a], " ")
+      new_name <- str_split(dataset$Nombre[25], " ")
       new_name <- new_name[[1]][1]
-      if (new_name == (replace_na(survey$name[b], ""))) {
-        dataset$Type[a] <- survey$type[b]
+      if (!is.na(survey$name[b])) {
+        if (new_name == survey$name[b]) {
+          dataset$Type[a] <- survey$type[b]
+        }
       }
     }
   }
