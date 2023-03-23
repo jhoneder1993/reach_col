@@ -52,7 +52,7 @@ alojamiento_merge <- function(base_datos){
   jmmi_colombia
 
   # Organizar las columnas con los datos existentes
-  jmmi_colombia <- jmmi_colombia %>% relocate(`_index`, .First)
+  jmmi_colombia <- jmmi_colombia %>% relocate(`_index`)
   jmmi_colombia <- jmmi_colombia %>% relocate(`_uuid`, .after = `_index`)
 
 
