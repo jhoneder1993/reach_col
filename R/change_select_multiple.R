@@ -20,56 +20,42 @@
 
 
 change_select_multiple <- function(encuesta, choices, survey, sep = "/"){
-  # Se agrega una columna en choices
-  choices = choices %>% mutate(concated_column = paste(list_name, name, sep = ''))
-
   # se almacena la encuesta como xls1
   xls1 = encuesta  # Cambiar a i
 
-  # Se crea dataset para tener el nombre y tipo de dato
-  dataset <- data.frame(Type = character(),
-                        Nombre = character())
 
-  ##Colocar los nombres de la encuesta en fila
-  for (j in 1:length(names(xls1))) {
-    dataset <- dataset %>% add_row(Nombre = names(xls1[j]))
-  }
+  survey[c("type.1", "type.2")] <- str_split_fixed(survey$type, " ", 2)
 
-  #Colocar el tipo de dato que es para despues obterner los labels
-  for (a in 1:length(dataset$Nombre)) {
-    for (b in 1:length(survey$name)){
-      new_name <- str_split(dataset$Nombre[a], sep)
-      new_name <- new_name[[1]][1]
-      if (new_name == (replace_na(survey$name[b], ""))) {
-        dataset$Type[a] <- survey$type[b]
-      }
-    }
-  }
+  survey <- survey |> filter(type.1 == "select_multiple")
+
+  survey <- survey |> mutate(columname = name) |> select(columname, type.2)
+
+  choices <- choices |> filter(list_name %in% survey$type.2)
+
+  choices <- choices |> left_join(survey, by = c("list_name" = "type.2"))
 
 
-  ##Tipo select_one o select_multiple
-  for (i in 1:length(dataset$Nombre)) {
-    if (str_detect(replace_na(dataset$Type[i], ""), "select_multiple")){
-      dataset$Type[i] <- "select_multiple"
-    }else if(str_detect(replace_na(dataset$Type[i], ""), "select_one")){
-      dataset$Type[i] <- "select_one"
-    }else {
-      dataset$Type[i] <- ""
-    }
-  }
+  # Se agrega una columna en choices
+  choices = choices %>% mutate(Nombre = paste(columname, name, sep = sep))
 
-  dataset <- dataset %>% filter(Type == "select_multiple" & str_detect(Nombre, sep))
+
+
+  dataset <- choices |> select(Nombre)
 
   new.si <- readline(prompt = "Cual sera el nuevo valor para 1:  ")
   new.no <- readline(prompt = "Cual sera el nuevo valor para 0:  ")
 
   for (i in 1:nrow(dataset)) {
     var <- dataset[["Nombre"]][i]
-    xls1[[var]] <- as.character(xls1[[var]])
+    if (var %in% colnames(xls1)) {
+      xls1[[var]] <- as.character(xls1[[var]])
 
-    xls1 <- xls1 %>% mutate(!!sym(var) := case_when(!!sym(var) == "1" ~ new.si,
-                                                    !!sym(var) == "0" ~ new.no,
-                                                    TRUE ~ NA_character_))
+      xls1 <- xls1 %>% mutate(!!sym(var) := case_when(!!sym(var) == "1" | !!sym(var) == 1 | !!sym(var) == TRUE ~ new.si,
+                                                      !!sym(var) == "0" | !!sym(var) == 0 | !!sym(var) == FALSE ~ new.no,
+                                                      TRUE ~ NA_character_))
+    } else{
+      print(paste("No se encuentra la columna:", var))
+    }
   }
 
   ##Regrese la lista con los datos
