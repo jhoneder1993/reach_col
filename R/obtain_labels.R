@@ -42,6 +42,7 @@ obtain_labels <- function(sv, cc, label = "label") {
       filtro <- cc |> filter(list_name == sv[["type.2"]][i]) |>
         mutate(conca = paste(sv[["name"]][i], name, sep="/")) |>
         select(!!sym(label), conca) |> rename(name = conca) |>
+        rename(label = !!sym(label)) |>
         mutate(type = sv[["type"]][i],
                type.1 = sv[["type.1"]][i],
                type.2 = sv[["type.2"]][i])
