@@ -8,9 +8,9 @@
 #'
 #' @examples etiquetas <- obtain_labels(survey, choices)
 
-obtain_labels <- function(sv, cc) {
+obtain_labels <- function(sv, cc, label = "label") {
   ## Select just the data to work
-  sv <- sv |> select(type, name, label)
+  sv <- sv |> select(type, name, !!sym(label))
 
   sv[c("type.1", "type.2")] <- str_split_fixed(sv$type, " ", 2)
 
@@ -28,7 +28,7 @@ obtain_labels <- function(sv, cc) {
                                 type.1 = sv[["type.1"]][i],
                                 type.2 = sv[["type.2"]][i],
                                 name = sv[["name"]][i],
-                                label = sv[["label"]][i])
+                                label = sv[[label]][i])
       # Si es select multiple
     } else {
       # realizar un filtro, un mutate, seleccionar la info importante, rename,
@@ -37,11 +37,11 @@ obtain_labels <- function(sv, cc) {
                                 type.1 = sv[["type.1"]][i],
                                 type.2 = sv[["type.2"]][i],
                                 name = sv[["name"]][i],
-                                label = sv[["label"]][i])
+                                label = sv[[label]][i])
 
       filtro <- cc |> filter(list_name == sv[["type.2"]][i]) |>
         mutate(conca = paste(sv[["name"]][i], name, sep="/")) |>
-        select(label, conca) |> rename(name = conca) |>
+        select(!!sym(label), conca) |> rename(name = conca) |>
         mutate(type = sv[["type"]][i],
                type.1 = sv[["type.1"]][i],
                type.2 = sv[["type.2"]][i])
