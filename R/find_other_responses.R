@@ -18,7 +18,7 @@ find_other_responses <- function(data, uuid="uuid"){
     data <- dplyr::rename(data, uuid = uuid)
     # Otros. Palabras que se deben tener en cuenta
     select_other_columns <- function(data) {
-      othernames <- grep("other$|Other$|otro$|Otro$|otr$|Otr$|^otro|^Otro|^otr_|^Otr_|uuid$", names(data),
+      othernames <- grep("other$|Other$|otro$|Otro$|otra$|Otra$|otr$|Otr$|^otro|^Otro|^otra|^Otra|^otr_|^Otr_|uuid$", names(data),
                          value = T
       );othernames
       data[othernames]
