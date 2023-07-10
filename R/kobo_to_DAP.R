@@ -38,12 +38,11 @@ kobo_to_DAP <- function(sv, ch, label = "label") {
 
   for (i in 1:nrow(data)) {
 
-    print(i)
+    #print(i)
     # filtrar las opciones
     opc <- ch |> filter(list_name == data[["type.2"]][i])
     #opc <- opc |> select(label) |> mutate(prueba = paste0(label, collapse = " /n "))
     opc <- opc |> select(!!sym(label))
-    print(data[["name"]][i])
 
     tabla <- tabla |> add_row("IN #" = as.character(i),
                               `Indicator / Variable` = data[["name"]][i],
