@@ -4,7 +4,7 @@
 \alias{obtain_labels}
 \title{Obtain Labels}
 \usage{
-obtain_labels(sv, cc)
+obtain_labels(sv, cc, label = "label")
 }
 \arguments{
 \item{sv}{el archivo survey de la herramienta de Kobo}
