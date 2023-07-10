@@ -12,7 +12,7 @@
 #' @examples datos <- Kobo_to_DAP(sv, ch, label = "label")
 
 
-Kobo_to_DAP <- function(sv, ch, label = "label") {
+kobo_to_DAP <- function(sv, ch, label = "label") {
   ## Primer filtro de type
   data <- sv |> filter(!(type %in% c("calculate", "note", "start", "end", "audit", "today")))
 
