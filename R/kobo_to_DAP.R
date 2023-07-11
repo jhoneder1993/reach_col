@@ -50,7 +50,7 @@ kobo_to_DAP <- function(sv, ch, label = "label") {
                               `Instructions` = data[["type.1"]][i],
                               `Relevant` = data[["relevant"]][i],
                               `Constraint` = data[["constraint"]][i],
-                              `Questionnaire Responses` = paste0(opc[[label]], collapse = "\n"))
+                              `Questionnaire Responses` = if(nrow(opc)>0) {paste0("- ", opc[[label]], collapse = "\n")})
   }
 
   # Homogenizar los type
